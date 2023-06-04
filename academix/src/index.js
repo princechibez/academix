@@ -1,13 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 
-import LandingPage from './pages/landing/landingPage';
+import theme from './styles/theme';
+
+import SignIn from './pages/auth/signin';
 
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <LandingPage />
+    <ThemeProvider theme={theme}>
+      <CssBaseline>
+        <SignIn/>
+      </CssBaseline>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
