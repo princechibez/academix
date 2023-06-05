@@ -37,7 +37,7 @@ export default function ResetPassword() {
       container
       component="main"
       sx={{
-        pl: 3,
+        px: 3,
         height: "100vh",
         backgroundImage: `url(${Authpage})`,
         backgroundRepeat: "no-repeat",
@@ -49,26 +49,25 @@ export default function ResetPassword() {
         justifyContent: "flex-start",
       }}
     >
-      <Box
+      <Grid
+        md={5}
         maxWidth="500px"
-        m="20px"
         sx={{
-          my: 8,
-          mx: 4,
-          p: 7,
+          // mx: 1,
+          px: 5, 
+          py: 6,
           display: "flex",
           flexDirection: "column",
           background: "white",
-          borderRadius: "0px 0px 0px 100px",
-          //   alignItems: "center",
+          borderRadius: "0px 0px 0px 50px",
           justifyContent: "center",
         }}
       >
-        <Typography component="h1" variant="h4">
+        <Typography component="h1" variant="h5">
           Reset Password
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Grid container spacing={3}>
             <Grid item xs={12}>
               <TextField
                 variant="standard"
@@ -138,7 +137,7 @@ export default function ResetPassword() {
             </Grid>
           </Grid>
         </Box>
-      </Box>
+      </Grid>
     </Grid>
   );
 }

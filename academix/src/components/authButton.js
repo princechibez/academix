@@ -13,10 +13,10 @@ export const SignInBtn = () => {
       sx={{
         mt: 3,
         mb: 2,
-        height: "50px",
+        height: "45px",
         color: "white",
         fontWeight: "Bold",
-
+        p: 0,
       }}
     >
       Sign In
@@ -34,9 +34,10 @@ export const SignUpBtn = () => {
       sx={{
         mt: 3,
         mb: 2,
-        height: "50px",
+        height: "45px",
         color: "white",
         fontWeight: "Bold",
+        p: 0,
       }}
     >
       Sign Up
@@ -54,9 +55,10 @@ export const ForgotPassBtn = () => {
       sx={{
         mt: 3,
         mb: 2,
-        height: "50px",
+        height: "45px",
         color: "white",
         fontWeight: "Bold",
+        p: 0,
       }}
     >
       Request reset link
@@ -70,7 +72,7 @@ export const Success = () => {
       type="submit"
       fullWidth
       variant="outlined"
-      sx={{ mt: 2, mb: 2, height: "50px" }}
+      sx={{ mt: 2, mb: 2, height: "40px", p: 0 ,}}
     >
       <Typography
         variant="body1"
@@ -95,9 +97,10 @@ export const ResetPassBtn = () => {
       sx={{
         mt: 3,
         mb: 2,
-        height: "50px",
+        height: "40px",
         color: "white",
         fontWeight: "Bold",
+        p: 0,
       }}
     >
       Reset password
@@ -111,8 +114,8 @@ export const GoogleSignIn = () => {
       type="submit"
       fullWidth
       variant="outlined"
-      sx={{ mt: 2, mb: 2, height: "50px",  }}
-      startIcon={<FcGoogle size={20} />}
+      sx={{ mt: 2, mb: 2, height: "45px", p: "2px", }}
+      startIcon={<FcGoogle size={20}  />}
     >
       <Typography
         variant="body2"
@@ -133,7 +136,7 @@ export const GoogleSignIn = () => {
         type="submit"
         fullWidth
         variant="outlined"
-        sx={{ mt: 2, mb: 2, height: "50px",  }}
+        sx={{ mt: 2, mb: 2, height: "40px", px: "0px", }}
         startIcon={<FcGoogle size={20} />}
       >
         <Typography

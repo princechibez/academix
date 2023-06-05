@@ -4,7 +4,11 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 
 import theme from './styles/theme';
 
-import SignIn from './pages/auth/signin';
+import LandingPage from './pages/landing/landingPage';
+
+
+
+
 
 
 
@@ -14,7 +18,7 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline>
-        <SignIn/>
+        <LandingPage/>
       </CssBaseline>
     </ThemeProvider>
   </React.StrictMode>

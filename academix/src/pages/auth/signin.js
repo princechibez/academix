@@ -15,9 +15,7 @@ import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined
 import { GoogleSignIn, SignInBtn } from "../../components/authButton";
 import Authpage from "../../assets/images/authpage_bg.jpg";
 
-// import FormControlLabel from "@mui/material/FormControlLabel";
-// import Checkbox from "@mui/material/Checkbox";
-// import Paper from "@mui/material/Paper";
+
 
 export default function SignIn() {
   const handleSubmit = (event) => {
@@ -42,7 +40,7 @@ export default function SignIn() {
       container
       component="main"
       sx={{
-        pl: 3,
+        px: 4,
         height: "100vh",
         backgroundImage: `url(${Authpage})`,
         backgroundRepeat: "no-repeat",
@@ -54,25 +52,23 @@ export default function SignIn() {
         justifyContent: "flex-start",
       }}
     >
-      <Box
+      <Grid
+        md={5}
         maxWidth="500px"
-        m="30px"
         sx={{
-          my: 8,
-          mx: 4,
-          p: 7,
+          // mx: 1,
+          p: 5,
           display: "flex",
           flexDirection: "column",
           background: "white",
-          borderRadius: "0px 0px 0px 80px",
-          // alignItems: "center",
+          borderRadius: "0px 0px 0px 50px",
         }}
       >
-        <Typography component="h1" variant="h4">
+        <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Grid container spacing={3}>
             <Grid item xs={12}>
               <TextField
                 variant="standard"
@@ -114,7 +110,7 @@ export default function SignIn() {
               />
             </Grid>
           </Grid>
-          <Grid container justifyContent="flex-end" sx={{ mt: 3 }}>
+          <Grid container justifyContent="flex-end" sx={{ mt: 1 }}>
             <Grid item>
               <Link href="#" variant="body2">
                 Forgot Password?
@@ -129,15 +125,15 @@ export default function SignIn() {
           </Divider>
           <GoogleSignIn />
           <Grid container justifyContent="center">
-            <Grid item>
-              Don't have an account?{" "}
+            <Grid item textAlign="center" pb={2}>
+              Already have an account?{" "}
               <Link href="#" variant="body2">
                 Sign up for one!
               </Link>
             </Grid>
           </Grid>
         </Box>
-      </Box>
+      </Grid>
     </Grid>
   );
 }

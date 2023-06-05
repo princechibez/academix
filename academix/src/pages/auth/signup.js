@@ -38,7 +38,7 @@ export default function SignUp() {
       container
       component="main"
       sx={{
-        pl: 3,
+        px: 4,
         height: "100vh",
         backgroundImage: `url(${Authpage})`,
         backgroundRepeat: "no-repeat",
@@ -52,23 +52,21 @@ export default function SignUp() {
     >
       <Box
         maxWidth="500px"
-        m="30px"
         sx={{
-          my: 8,
-          mx: 4,
-          p: 7,
+          mx: 1,
+          p: 5,
           display: "flex",
           flexDirection: "column",
           background: "white",
-          borderRadius: "0px 0px 0px 100px",
+          borderRadius: "0px 0px 0px 50px",
           // alignItems: "center",
         }}
       >
         <Typography component="h1" variant="h4">
           Sign up
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
+        <Box component="form" noValidate onSubmit={handleSubmit}>
+          <Grid container spacing={1}>
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="standard"
@@ -132,12 +130,6 @@ export default function SignUp() {
                 }}
               />
             </Grid>
-            {/* <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid> */}
           </Grid>
           <SignUpBtn />
           <Divider>
@@ -147,7 +139,7 @@ export default function SignUp() {
           </Divider>
           <GoogleSignUp />
           <Grid container justifyContent="center">
-            <Grid item>
+            <Grid item textAlign="center">
               Already have an account?{" "}
               <Link href="#" variant="body2">
                 Sign in
