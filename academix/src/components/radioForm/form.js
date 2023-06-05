@@ -1,6 +1,6 @@
 import React from "react";
 import "./form.css";
-import mainlogo from "../../assets/mainlogo.png";
+import mainlogo from "../../assets/images/mainlogo.png";
 
 function Form() {
   return (

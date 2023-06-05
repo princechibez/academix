@@ -1,5 +1,5 @@
 import React from "react";
-import Form from "../components/radioForm/form";
+import Form from "../../components/radioForm/form";
 
 function Joiningas() {
   return (

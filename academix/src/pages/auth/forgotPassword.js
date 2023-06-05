@@ -1,11 +1,14 @@
 import * as React from "react";
-import { TextField, Link, Grid, Box, Typography } from "@mui/material";
+import {
+  TextField,
+  Link,
+  Grid,
+  Box,
+  Typography,
+} from "@mui/material";
 
-
-// import { GoogleSignIn, SignInBtn } from "../../components/authButton";
+import { ForgotPassBtn,} from "../../components/authButton";
 import Authpage from "../../assets/images/authpage_bg.jpg";
-import { ForgotPassBtn } from "../../components/authButton";
-
 
 export default function ForgotPassword() {
   const handleSubmit = (event) => {
@@ -22,7 +25,7 @@ export default function ForgotPassword() {
       container
       component="main"
       sx={{
-        pl: 3,
+        px: 4,
         height: "100vh",
         backgroundImage: `url(${Authpage})`,
         backgroundRepeat: "no-repeat",
@@ -34,48 +37,55 @@ export default function ForgotPassword() {
         justifyContent: "flex-start",
       }}
     >
-      <Box
-        m="30px"
+      <Grid
+        md={5}
+        xs={{mx: 0}}
+        maxWidth="500px"
         sx={{
-          my: 8,
-          mx: 4,
-          p: 9,
-          width: "39%",
+          mx: 1,
+          p: 5,
           display: "flex",
           flexDirection: "column",
           background: "white",
-          borderRadius: "0px 0px 0px 80px",
-          justifyContent: "center",
+          borderRadius: "0px 0px 0px 50px",
+          justifyContent: "cemter",
         }}
       >
-        <Typography component="h1" variant="h4">
+        <Typography component="h1" variant="h5">
           Forgot Password
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Grid container spacing={3}>
             <Grid item xs={12}>
               <TextField
                 variant="standard"
                 required
                 fullWidth
                 id="email"
-                label="Enter your email address"
+                label="Email"
                 name="email"
                 autoComplete="email"
               />
             </Grid>
           </Grid>
-          <ForgotPassBtn />
-          <Grid container justifyContent="center">
+          <Grid container justifyContent="flex-end" sx={{ mt: 1 }}>
             <Grid item>
+              <Link href="#" variant="body2">
+                Forgot Password?
+              </Link>
+            </Grid>
+          </Grid>
+          <ForgotPassBtn/>
+          <Grid container justifyContent="center">
+            <Grid item textAlign="center" pb={2}>
               Back to{" "}
               <Link href="#" variant="body2">
-                Sign in
+                Signin
               </Link>
             </Grid>
           </Grid>
         </Box>
-      </Box>
+      </Grid>
     </Grid>
   );
 }

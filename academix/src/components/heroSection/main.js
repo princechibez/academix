@@ -1,11 +1,11 @@
 import React from "react";
 import "../heroSection/main.css";
-import Star from "../../assets/Star.png";
-import Star1 from "../../assets/Star1.png";
-import Star2 from "../../assets/Star2.png";
-import Star3 from "../../assets/Star3.png";
+import Star from "../../assets/images/Star.png";
+import Star1 from "../../assets/images/Star1.png";
+import Star2 from "../../assets/images/Star2.png";
+import Star3 from "../../assets/images/Star3.png";
 
-function Main() {
+export default function Main() {
   return (
     <div className="main">
       <div className="main-container">
@@ -19,12 +19,12 @@ function Main() {
           <div className="top-right">
             <img
               src={Star}
-              alt="Image of a boy on computer"
+              alt="A boy on computer"
               className="image-1"
             />
             <img
               src={Star1}
-              alt="Image of a smiling lady"
+              alt="A smiling lady"
               className="image-2"
             />
           </div>
@@ -42,12 +42,12 @@ function Main() {
           <div className="bottom-right">
             <img
               src={Star2}
-              alt="Image of a man staring at a computer"
+              alt="A man staring at a computer"
               className="image-3"
             />
             <img
               src={Star3}
-              alt="Image of a lady on computer"
+              alt="A lady on computer"
               className="image-4"
             />
           </div>
@@ -57,4 +57,4 @@ function Main() {
   );
 }
 
-export default Main;
+

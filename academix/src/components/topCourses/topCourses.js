@@ -1,20 +1,20 @@
 import React from "react";
 import "../../components/topCourses/topCourses.css";
-import orangeline from "../../assets/orangeline.png";
-import purpleline from "../../assets/purpleline.png";
-import foundation from "../../assets/foundation.png";
-import delicious from "../../assets/delicious.png";
-import adobe from "../../assets/adobe.png";
-import technology from "../../assets/technology.png";
-import storytelling from "../../assets/storytelling.png";
-import melodies from "../../assets/melodies.png";
-import marketing from "../../assets/marketing.png";
-import unleash from "../../assets/unleash.png";
-import starfull from "../../assets/starfull.png";
-import starempty from "../../assets/starempty.png";
-import starhalf from "../../assets/starhalf.png";
+import orangeline from "../../assets/images/orangeline.png";
+import purpleline from "../../assets/images/purpleline.png";
+import foundation from "../../assets/images/foundation.png";
+import delicious from "../../assets/images/delicious.png";
+import adobe from "../../assets/images/adobe.png";
+import technology from "../../assets/images/technology.png";
+import storytelling from "../../assets/images/storytelling.png";
+import melodies from "../../assets/images/melodies.png";
+import marketing from "../../assets/images/marketing.png";
+import unleash from "../../assets/images/unleash.png";
+import starfull from "../../assets/images/starfull.png";
+import starempty from "../../assets/images/starempty.png";
+import starhalf from "../../assets/images/starhalf.png";
 
-function Topcourses() {
+export default function Topcourses() {
   return (
     <div className="topcourses">
       <div className="headline">
@@ -138,6 +138,4 @@ function Topcourses() {
       </div>
     </div>
   );
-}
-
-export default Topcourses;
+};

@@ -17,7 +17,6 @@ export default function ResetSuccessful() {
         height: "100vh",
         alignItems: "center",
         justifyContent: "center",
-
       }}
     >
       <Grid
@@ -44,15 +43,15 @@ export default function ResetSuccessful() {
           background: "white",
           borderRadius: "0px 80px 0px 80px",
           alignItems: "center",
-          gap: 1,
+          gap: 1.5,
           top: "-540px",
         }}
       >
-        <Image src={Balloon} />
-        <Typography variant="body2" container textAlign="center">
+        <Image src={Balloon} easing={100} duration={400} />
+        <Typography variant="body2" container sx={{ textAlign: "center" }}>
           Congratulations you have <br /> successfully changed your password.
         </Typography>
-        
+
         <Success />
       </Box>
     </Grid>

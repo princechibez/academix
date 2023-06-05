@@ -1,8 +1,8 @@
 import React from "react";
 import "../footer/footer.css";
-import logowhite from "../../assets/logowhite.png";
+import logowhite from "../../assets/images/logowhite.png";
 
-function Footer() {
+export default function Footer() {
   return (
     <div className="footer">
       <div className="footer-nav">
@@ -48,4 +48,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+ 

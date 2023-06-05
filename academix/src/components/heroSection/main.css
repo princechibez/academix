@@ -12,6 +12,7 @@
   padding-left: 100px;
   padding-right: 100px;
   padding-bottom: 100px;
+  height: 100vh;
 }
 .top,
 .bottom {
@@ -42,7 +43,7 @@ top-right {
   margin-right: 20px;
 }
 .top .potential {
-  background-image: url("../../assets/ellipse.png");
+  background-image: url("../../assets/images/ellipse.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

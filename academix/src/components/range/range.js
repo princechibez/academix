@@ -1,13 +1,13 @@
 import React from "react";
 import "../range/range.css";
-import design from "../../assets/design.png";
-import developer from "../../assets/developer.png";
-import web3 from "../../assets/web3.png";
-import finance from "../../assets/finance.png";
-import music from "../../assets/music.png";
-import cooking from "../../assets/cooking.png";
+import design from "../../assets/images/design.png";
+import developer from "../../assets/images/developer.png";
+import web3 from "../../assets/images/web3.png";
+import finance from "../../assets/images/finance.png";
+import music from "../../assets/images/music.png";
+import cooking from "../../assets/images/cooking.png";
 
-function Range() {
+export default function Range() {
   return (
     <div className="range">
       <div className="text-container">
@@ -51,4 +51,3 @@ function Range() {
   );
 }
 
-export default Range;

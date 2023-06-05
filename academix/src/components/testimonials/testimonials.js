@@ -1,8 +1,8 @@
 import React from "react";
 import "../testimonials/testimonials.css";
-import testimonial1 from "../../assets/testimonial1.png";
-import testimonial2 from "../../assets/testimonial2.png";
-import testimonial3 from "../../assets/testimonial3.png";
+import testimonial1 from "../../assets/images/testimonial1.png";
+import testimonial2 from "../../assets/images/testimonial2.png";
+import testimonial3 from "../../assets/images/testimonial3.png";
 
 function Testimonials() {
   return (

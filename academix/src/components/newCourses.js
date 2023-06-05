@@ -1,17 +1,17 @@
 import React from "react";
 import "../components/topCourses/topCourses.css";
-import orangeline from "../assets/orangeline.png";
-import purpleline from "../assets/purpleline.png";
-import foundation from "../assets/foundation.png";
-import delicious from "../assets/delicious.png";
-import adobe from "../assets/adobe.png";
-import technology from "../assets/technology.png";
-import storytelling from "../assets/storytelling.png";
-import melodies from "../assets/melodies.png";
-import marketing from "../assets/marketing.png";
-import unleash from "../assets/unleash.png";
+import orangeline from "../assets/images/orangeline.png";
+import purpleline from "../assets/images/purpleline.png";
+import foundation from "../assets/images/foundation.png";
+import delicious from "../assets/images/delicious.png";
+import adobe from "../assets/images/adobe.png";
+import technology from "../assets/images/technology.png";
+import storytelling from "../assets/images/storytelling.png";
+import melodies from "../assets/images/melodies.png";
+import marketing from "../assets/images/marketing.png";
+import unleash from "../assets/images/unleash.png";
 
-function Newcourses() {
+export default function Newcourses() {
   return (
     <div className="newcourses">
       <div className="headline">
@@ -81,4 +81,3 @@ function Newcourses() {
   );
 }
 
-export default Newcourses;

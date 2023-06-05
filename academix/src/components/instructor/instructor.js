@@ -1,12 +1,12 @@
 import React from "react";
 import "../../components/instructor/instructor.css";
-import instructor1 from "../../assets/instructor1.png";
-import instructor2 from "../../assets/instructor2.png";
-import instructor3 from "../../assets/instructor3.png";
-import instructor4 from "../../assets/instructor4.png";
-import instructor5 from "../../assets/instructor5.png";
+import instructor1 from "../../assets/images/instructor1.png";
+import instructor2 from "../../assets/images/instructor2.png";
+import instructor3 from "../../assets/images/instructor3.png";
+import instructor4 from "../../assets/images/instructor4.png";
+import instructor5 from "../../assets/images/instructor5.png";
 
-function Instructors() {
+export default function Instructors() {
   return (
     <div className="instructors">
       <h3>Courses taught by World Class Instructors</h3>
@@ -25,4 +25,3 @@ function Instructors() {
   );
 }
 
-export default Instructors;
