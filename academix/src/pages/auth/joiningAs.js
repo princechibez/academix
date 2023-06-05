@@ -1,7 +1,7 @@
 import React from "react";
 import Form from "../../components/radioForm/form";
 
-function Joiningas() {
+export default function JoiningAs() {
   return (
     <div className="joiningas" color="white">
       <Form />
@@ -9,4 +9,3 @@ function Joiningas() {
   );
 }
 
-export default Joiningas;
