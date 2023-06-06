@@ -2,7 +2,7 @@ import React from "react";
 import "./nav.css";
 import logopurple from "../../assets/images/logopurple.png";
 
-export default function Nav(props) {
+export default function Nav() {
   return (
     <div className="nav">
       <div className="brand">
@@ -18,14 +18,10 @@ export default function Nav(props) {
         <span className="categories">Categories</span>
         <span className="about">About Us</span>
       </div>
-      {props.authenticated ? (
-        <p>Username and picture</p>
-      ) : (
-        <div className="buttons">
-          <button className="signup">Sign Up</button>
-          <button className="signin">Sign In</button>
-        </div>
-      )}
+      <div className="buttons">
+        <button className="signup">Sign Up</button>
+        <button className="signin">Sign In</button>
+      </div>
     </div>
   );
 }
