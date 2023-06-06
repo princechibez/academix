@@ -1,27 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 
-import theme from './styles/theme';
+import theme from "./styles/theme";
 
-import LandingPage from './pages/landing/landingPage';
+import App from './App'
 
-
-
-
-
-
-
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+const app = (
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline>
-        <LandingPage/>
+        <App />
       </CssBaseline>
     </ThemeProvider>
   </React.StrictMode>
 );
 
-
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(app);
