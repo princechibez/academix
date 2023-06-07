@@ -1,14 +1,22 @@
 import React from "react";
 import { Typography, Rating } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 import "./listStyles.css";
 
 function List(props) {
+  const navigate = useNavigate();
+
+  const goToDetails = (courseID) => {
+    navigate(`/course-description/${courseID}`);
+  };
+
+
   const data = props.data.slice(0, 9);
   return (
     <div className="list">
       {data.map((item, index) => (
-        <div className="card">
+        <div onClick={() => goToDetails(item._id)} className="card">
           <img
             src={item.thumbnail}
             style={{ backgroundPosition: "center", backgroundSize: "contain" }}

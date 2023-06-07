@@ -76,7 +76,7 @@ const App = () => {
       ),
     },
     {
-      path: "/course-description",
+      path: "/course-description/:courseID",
       element: (
         <React.Suspense fallback={<Loader />}>
           <Description />
