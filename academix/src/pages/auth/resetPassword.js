@@ -10,21 +10,87 @@ import {
 } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "../../utility/axios.config";
+import jwt_decode from "jwt-decode";
 
-import {  ResetPassBtn} from "../../components/authButton";
+import { ResetPassBtn } from "../../components/authButton";
 import Authpage from "../../assets/images/authpage_bg.jpg";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function ResetPassword() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  // URL parameter and query handlers...
+  const [params] = useSearchParams();
+  const navigate = useNavigate();
+
+  const [password, setPassword] = React.useState();
+  const [confirmPassword, setConfirmPassword] = React.useState();
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  React.useEffect(() => {
+    try {
+      const decoded_token = jwt_decode(params.get("token"));
+      if (!decoded_token.data.userIdentityVerified) {
+        navigate("/wrong-page");
+      }
+    } catch (err) {
+      navigate("/wrong-page");
+    }
+  }, []);
+
+  const inputHandler = (e, id) => {
+    if (id === "password") {
+      setPassword(e.target.value);
+    }
+    if (id === "confirm") {
+      setConfirmPassword(e.target.value);
+    }
   };
 
-  const [showPassword, setShowPassword] = React.useState(false);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // const data = { email, password }; // real sample...
+    const data = { email: "chibezprince@gmail.com", password };
+
+    const initialToastID = toast.loading("Resetting password...");
+
+    if (password !== confirmPassword) {
+      return toast.update(initialToastID, {
+        render: "Passwords not equal",
+        type: "error",
+        isLoading: false,
+        autoClose: 2000,
+      });
+    }
+    // Send signup request
+    try {
+      const response = await axios.post(
+        "/reset-password",
+        JSON.stringify(data),
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      toast.update(initialToastID, {
+        render: response.data.message,
+        type: "success",
+        isLoading: false,
+        autoClose: 1000,
+      });
+      setTimeout(() => {
+        navigate("/reset-password-successfull");
+      }, 1000);
+    } catch (err) {
+      toast.update(initialToastID, {
+        render: err.response.data.message,
+        type: "error",
+        isLoading: false,
+        autoClose: 2000,
+      });
+    }
+  };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -54,7 +120,7 @@ export default function ResetPassword() {
         maxWidth="500px"
         sx={{
           // mx: 1,
-          px: 5, 
+          px: 5,
           py: 6,
           display: "flex",
           flexDirection: "column",
@@ -75,6 +141,7 @@ export default function ResetPassword() {
                 fullWidth
                 name="password"
                 label="Enter a new password"
+                onChange={(e) => inputHandler(e, "password")}
                 type={showPassword ? "text" : "password"}
                 id="password"
                 autoComplete="new-password"
@@ -104,6 +171,7 @@ export default function ResetPassword() {
                 fullWidth
                 name="password"
                 label="Confirm new password"
+                onChange={(e) => inputHandler(e, "confirm")}
                 type={showPassword ? "text" : "password"}
                 id="new-password"
                 autoComplete="new-password"
@@ -127,7 +195,7 @@ export default function ResetPassword() {
               />
             </Grid>
           </Grid>
-          <ResetPassBtn/>
+          <ResetPassBtn />
           <Grid container justifyContent="center">
             <Grid item>
               Back to{" "}
@@ -138,6 +206,7 @@ export default function ResetPassword() {
           </Grid>
         </Box>
       </Grid>
+      <ToastContainer />
     </Grid>
   );
 }

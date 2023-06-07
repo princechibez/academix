@@ -6,48 +6,88 @@ import web3 from "../../assets/images/web3.png";
 import finance from "../../assets/images/finance.png";
 import music from "../../assets/images/music.png";
 import cooking from "../../assets/images/cooking.png";
+import { Button, Typography } from "@mui/material";
 
 export default function Range() {
   return (
     <div className="range">
       <div className="text-container">
-        <h2>An Extensive Range of Course Offerings</h2>
-        <p>
+        <Typography variant="h3">
+          An Extensive Range of Course Offerings
+        </Typography>
+        <Typography variant="h6">
           Explore our comprehensive catalog of diverse courses, <br /> carefully
           curated to cater to your learning goals.
-        </p>
+        </Typography>
       </div>
       <div className="offerings">
-        <div className="top">
-          <div className="design">
-            <img src={design} alt="designer" />
-            <p className="button">Design</p>
-          </div>
-          <div className="development">
-            <img src={developer} alt="developer" />
-            <p className="button">Development</p>
-          </div>
-          <div className="web-3">
-            <img src={web3} alt="web 3" />
-            <p className="button">Web 3</p>
-          </div>
+        {/* <div className="top"> */}
+        <div>
+          <img src={design} alt="designer" />
+          <Button
+            variant="outlined"
+            sx={{ borderColor: "#6B6B6B", color: "#6B6B6B", padding: "12px 0" }}
+            fullWidth
+          >
+            Design
+          </Button>
         </div>
-        <div className="bottom">
-          <div className="finance">
-            <img src={finance} alt="finance" />
-            <p className="button">Finance</p>
-          </div>
-          <div className="music">
-            <img src={music} alt="music" />
-            <p className="button">Music</p>
-          </div>
-          <div className="cooking">
-            <img src={cooking} alt="cooking" />
-            <p className="button">Cooking</p>
-          </div>
+        <div>
+          <img src={developer} alt="developer" />
+          <Button
+            variant="outlined"
+            sx={{ borderColor: "#6B6B6B", color: "#6B6B6B", padding: "12px 0" }}
+            fullWidth
+          >
+            Development
+          </Button>
         </div>
+        <div>
+          <img src={web3} alt="web 3" />
+
+          <Button
+            variant="outlined"
+            sx={{ borderColor: "#6B6B6B", color: "#6B6B6B", padding: "12px 0" }}
+            fullWidth
+          >
+            Web 3
+          </Button>
+        </div>
+        {/* </div>
+        <div className="bottom"> */}
+        <div>
+          <img src={finance} alt="finance" />
+
+          <Button
+            variant="outlined"
+            sx={{ borderColor: "#6B6B6B", color: "#6B6B6B", padding: "12px 0" }}
+            fullWidth
+          >
+            Finance
+          </Button>
+        </div>
+        <div>
+          <img src={music} alt="music" />
+          <Button
+            variant="outlined"
+            sx={{ borderColor: "#6B6B6B", color: "#6B6B6B", padding: "12px 0" }}
+            fullWidth
+          >
+            Music
+          </Button>
+        </div>
+        <div>
+          <img src={cooking} alt="cooking" />
+          <Button
+            variant="outlined"
+            sx={{ borderColor: "#6B6B6B", color: "#6B6B6B", padding: "12px 0" }}
+            fullWidth
+          >
+            Cooking
+          </Button>
+        </div>
+        {/* </div> */}
       </div>
     </div>
   );
 }
-

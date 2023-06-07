@@ -26,9 +26,9 @@ import {
   PrimaryDescWrapper,
   PrimaryDescription,
 } from "./description_styles";
-import Topcourses from "../../components/topCourses/topCourses";
+import Topcourses from "../../components/courseList/courseList";
 import Module from "../../components/courseModuleList/moduleList";
-import { course } from "../../model/courses";
+import { course } from "../../model/course";
 import Review from "../../components/reviews/review";
 import InstructorProfile from "../../components/instructorProfile/instructorProfile";
 

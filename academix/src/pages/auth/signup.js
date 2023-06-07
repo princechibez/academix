@@ -11,21 +11,104 @@ import {
 } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "../../utility/axios.config";
 
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { GoogleSignUp, SignUpBtn } from "../../components/authButton";
 import Authpage from "../../assets/images/authpage_bg.jpg";
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+  const [params] = useSearchParams();
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (!params.get("registerAs")) {
+      navigate("/join-as");
+    }
+  });
 
   const [showPassword, setShowPassword] = React.useState(false);
+  const [firstname, setFirstname] = React.useState();
+  const [lastname, setLastname] = React.useState();
+  const [email, setEmail] = React.useState();
+  const [password, setPassword] = React.useState();
+
+  // clear token after 24hrs
+  const clearToken = () => {
+    setTimeout(() => {
+      localStorage.clear("token");
+      console.log("cleared");
+    }, 86400);
+  };
+
+  const inputHandler = (event, identifier) => {
+    if (identifier === "firstname") {
+      setFirstname(event.target.value);
+    }
+    if (identifier === "lastname") {
+      setLastname(event.target.value);
+    }
+    if (identifier === "email") {
+      setEmail(event.target.value);
+    }
+    if (identifier === "password") {
+      setPassword(event.target.value);
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // get the radio value appended to the url query
+    const userLevel = params.get("registerAs");
+    const formData = {
+      firstname,
+      lastname,
+      email,
+      password,
+      userLevel,
+      user_interests: ["programming", "music", "arts", "science"],
+    };
+    const initialToastID = toast.loading("We're Registering you...");
+    // Send signup request
+    try {
+      const response = await axios.post("/signup", JSON.stringify(formData), {
+        headers: { "Content-Type": "application/json" },
+      });
+      let message;
+      if (response.data.message === "user created") {
+        message = "Registration successfull";
+      }
+
+      // save auth token to loacal storage
+      localStorage.setItem("token", response.data.data.token);
+      localStorage.setItem("user", response.data.data.newUser);
+
+      toast.update(initialToastID, {
+        render: message,
+        type: "success",
+        isLoading: false,
+        autoClose: 2000,
+      });
+      return clearToken();
+    } catch (err) {
+      if (err.message === "timeout of 10000ms exceeded") {
+        return toast.update(initialToastID, {
+          render: "Request timeout",
+          type: "error",
+          isLoading: false,
+          autoClose: 2000,
+        });
+      }
+      toast.update(initialToastID, {
+        render: err.response.data.message,
+        type: "error",
+        isLoading: false,
+        autoClose: 2000,
+      });
+    }
+  };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -72,6 +155,7 @@ export default function SignUp() {
                 variant="standard"
                 autoComplete="given-name"
                 name="firstName"
+                onChange={(event) => inputHandler(event, "firstname")}
                 required
                 fullWidth
                 id="firstName"
@@ -87,6 +171,7 @@ export default function SignUp() {
                 id="lastName"
                 label="Last Name"
                 name="lastName"
+                onChange={(event) => inputHandler(event, "lastname")}
                 autoComplete="family-name"
               />
             </Grid>
@@ -98,6 +183,7 @@ export default function SignUp() {
                 id="email"
                 label="Email Address"
                 name="email"
+                onChange={(event) => inputHandler(event, "email")}
                 autoComplete="email"
               />
             </Grid>
@@ -107,6 +193,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 name="password"
+                onChange={(event) => inputHandler(event, "password")}
                 label="Password"
                 type={showPassword ? "text" : "password"}
                 id="password"
@@ -131,23 +218,24 @@ export default function SignUp() {
               />
             </Grid>
           </Grid>
-          <SignUpBtn />
+          <SignUpBtn submit={handleSubmit} />
           <Divider>
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
               OR
             </Typography>
           </Divider>
-          <GoogleSignUp />
+          {/* <GoogleSignUp /> */}
           <Grid container justifyContent="center">
             <Grid item textAlign="center">
               Already have an account?{" "}
-              <Link href="#" variant="body2">
+              <Link href="/signin" variant="body2">
                 Sign in
               </Link>
             </Grid>
           </Grid>
         </Box>
       </Box>
+      <ToastContainer />
     </Grid>
   );
 }
