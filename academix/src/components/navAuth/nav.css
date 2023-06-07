@@ -7,15 +7,21 @@
 .nav {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
+  gap: 14px;
   background-color: #ffffff;
   height: 100%;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  box-sizing: border-box;
+  padding: 15px 42px;
+  /* padding-top: 30px;
+  padding-bottom: 30px; */
 }
 .logo {
   padding-right: 10px;
 }
-.logo:hover, .brand-name, .nav-options {
+.logo:hover,
+.brand-name,
+.nav-options {
   cursor: pointer;
 }
 .brand-name {
@@ -48,27 +54,17 @@ input:focus {
 .navigate {
   font-weight: 500;
   font-size: 18px;
-  color: #1D262D;
+  color: #1d262d;
+}
+@media (max-width: 950px) {
+  .navigate {display: none;}
 }
 .navigate .categories {
   padding-right: 20px;
 }
-.buttons button {
-  padding: 6px 18px;
-  border-radius: 4px;
-  font-weight: 400;
-  font-size: 14px;
-}
-.buttons .signup {
-  background-color: #FFC826;
-  color: #ffffff;
-  margin-right: 8px;
-  border: 0px;
-}
-.buttons .signin {
-  background-color: #ffffff;
-  color: #FFC826;
-  border: 1px solid #FFC826;
+.buttons {
+  display: flex;
+  gap: 16px;
 }
 .buttons button:hover {
   cursor: pointer;

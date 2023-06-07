@@ -1,23 +1,44 @@
 import * as React from "react";
-import {
-  TextField,
-  Link,
-  Grid,
-  Box,
-  Typography,
-} from "@mui/material";
+import { TextField, Link, Grid, Box, Typography } from "@mui/material";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "../../utility/axios.config";
 
-import { ForgotPassBtn,} from "../../components/authButton";
+import { ForgotPassBtn } from "../../components/authButton";
 import Authpage from "../../assets/images/authpage_bg.jpg";
 
 export default function ForgotPassword() {
-  const handleSubmit = (event) => {
+  const [email, setemail] = React.useState();
+
+  const inputHandler = (event) => {
+    setemail(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    const data = { email };
+
+    const initialToastID = toast.loading("Loggin in...");
+    // Send signup request
+    try {
+      const response = await axios.post("/request-password-reset", JSON.stringify(data), {
+        headers: { "Content-Type": "application/json" },
+      });
+
+      toast.update(initialToastID, {
+        render: response.data.message,
+        type: "success",
+        isLoading: false,
+        autoClose: 2000,
+      });
+    } catch (err) {
+      toast.update(initialToastID, {
+        render: err.response.data.message,
+        type: "error",
+        isLoading: false,
+        autoClose: 2000,
+      });
+    }
   };
 
   return (
@@ -39,7 +60,7 @@ export default function ForgotPassword() {
     >
       <Grid
         md={5}
-        xs={{mx: 0}}
+        xs={{ mx: 0 }}
         maxWidth="500px"
         sx={{
           mx: 1,
@@ -62,30 +83,26 @@ export default function ForgotPassword() {
                 required
                 fullWidth
                 id="email"
+                onChange={inputHandler}
                 label="Email"
                 name="email"
                 autoComplete="email"
               />
             </Grid>
           </Grid>
-          <Grid container justifyContent="flex-end" sx={{ mt: 1 }}>
-            <Grid item>
-              <Link href="#" variant="body2">
-                Forgot Password?
-              </Link>
-            </Grid>
-          </Grid>
-          <ForgotPassBtn/>
+          <Grid container justifyContent="flex-end" sx={{ mt: 1 }}></Grid>
+          <ForgotPassBtn onClick={handleSubmit} />
           <Grid container justifyContent="center">
             <Grid item textAlign="center" pb={2}>
               Back to{" "}
-              <Link href="#" variant="body2">
+              <Link href="/signin" variant="body2">
                 Signin
               </Link>
             </Grid>
           </Grid>
         </Box>
       </Grid>
+      <ToastContainer />
     </Grid>
   );
 }

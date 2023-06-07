@@ -14,45 +14,29 @@
 }
 .offerings {
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
+  width: 100%;
+  gap: 24px;
+  padding: 0 32px;
   /* padding-left: 100px;
   padding-right: 100px; */
- 
 }
-.text-container h2 {
-  color: #1d262d;
-  font-size: 45px;
-  font-weight: 600;
+
+.offerings div {
+  width: 350px;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: center;
 }
-.text-container p {
-  color: #2b2b2b;
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 35px;
-  padding-bottom: 30px;
-}
-.top .button,
-.bottom .button {
-  border: 1.5px solid #6b6b6b;
-  border-radius: 10px;
-  padding: 5px;
-  background-color: #ffffff;
-  color: #2b2b2b;
+
+.text-container {
   text-align: center;
-  font-size: 22px;
-  font-weight: 400;
-}
-.top .development,
-.bottom .music {
-  padding-left: 150px;
-  padding-right: 150px;
-}
-.top,
-.bottom:hover {
-  cursor: pointer;
-}
-.bottom {
-  padding-top: 20px;
+  margin: auto;
+  width: 80%;
+  padding: 8px 32px;
+  margin-bottom: 32px;
 }

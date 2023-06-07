@@ -1,18 +1,18 @@
 import * as React from "react";
-import { Grid, Box, Typography } from "@mui/material";
+import { Grid, Box, Typography, Button } from "@mui/material";
 import { Image } from "mui-image";
 
-import { Success } from "../../components/authButton";
-import Authpage from "../../assets/images/authpage_bg.jpg";
-import Balloon from "../../assets/images/balloon.png";
+import { Success } from "../components/authButton";
+import Authpage from "../assets/images/authpage_bg.jpg";
+import Balloon from "../assets/images/balloon.png";
 import { useNavigate } from "react-router-dom";
 
-export default function ResetSuccessful() {
+export default function NotFound() {
   // const handleSubmit = (event) => { };
   const navigate = useNavigate();
 
-  const goToLogin = () => {
-    navigate("/signin");
+  const goToHome = () => {
+    navigate("/");
   };
 
   return (
@@ -54,11 +54,27 @@ export default function ResetSuccessful() {
         }}
       >
         <Image src={Balloon} easing={100} duration={400} />
-        <Typography variant="body2" container sx={{ textAlign: "center" }}>
-          Congratulations you have <br /> successfully changed your password.
+        <Typography variant="h5" container sx={{ textAlign: "center" }}>
+          Page not Found
         </Typography>
 
-        <Success clicked={goToLogin} />
+        <Button
+          type="submit"
+          fullWidth
+          variant="outlined"
+          onClick={goToHome}
+          sx={{ mt: 2, mb: 2, height: "40px", p: 0 }}
+        >
+          <Typography
+            variant="body1"
+            sx={{
+              color: "text.secondary.main",
+              fontWeight: "Bold",
+            }}
+          >
+            Go to Homepage
+          </Typography>
+        </Button>
       </Box>
     </Grid>
   );

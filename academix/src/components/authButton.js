@@ -1,7 +1,6 @@
-import React from 'react'
-import { Button, Typography} from '@mui/material';
-import { FcGoogle } from 'react-icons/fc';
- 
+import React from "react";
+import { Button, Typography } from "@mui/material";
+import { FcGoogle } from "react-icons/fc";
 
 export const SignInBtn = () => {
   return (
@@ -22,11 +21,12 @@ export const SignInBtn = () => {
       Sign In
     </Button>
   );
-}
+};
 
-export const SignUpBtn = () => {
+export const SignUpBtn = (props) => {
   return (
     <Button
+      onClick={props.submit}
       type="submit"
       fullWidth
       variant="contained"
@@ -43,13 +43,14 @@ export const SignUpBtn = () => {
       Sign Up
     </Button>
   );
-}
+};
 
-export const ForgotPassBtn = () => {
+export const ForgotPassBtn = (props) => {
   return (
     <Button
       type="submit"
       fullWidth
+      onClick={props.onclick}
       variant="contained"
       size="large"
       sx={{
@@ -66,13 +67,14 @@ export const ForgotPassBtn = () => {
   );
 };
 
-export const Success = () => {
+export const Success = (props) => {
   return (
     <Button
       type="submit"
       fullWidth
       variant="outlined"
-      sx={{ mt: 2, mb: 2, height: "40px", p: 0 ,}}
+      onClick={props.clicked}
+      sx={{ mt: 2, mb: 2, height: "40px", p: 0 }}
     >
       <Typography
         variant="body1"
@@ -114,8 +116,8 @@ export const GoogleSignIn = () => {
       type="submit"
       fullWidth
       variant="outlined"
-      sx={{ mt: 2, mb: 2, height: "45px", p: "2px", }}
-      startIcon={<FcGoogle size={20}  />}
+      sx={{ mt: 2, mb: 2, height: "45px", p: "2px" }}
+      startIcon={<FcGoogle size={20} />}
     >
       <Typography
         variant="body2"
@@ -130,22 +132,21 @@ export const GoogleSignIn = () => {
   );
 };
 
-  export const GoogleSignUp = () => {
-    return (
-      <Button
-        type="submit"
-        fullWidth
-        variant="outlined"
-        sx={{ mt: 2, mb: 2, height: "40px", px: "0px", }}
-        startIcon={<FcGoogle size={20} />}
+export const GoogleSignUp = () => {
+  return (
+    <Button
+      type="submit"
+      fullWidth
+      variant="outlined"
+      sx={{ mt: 2, mb: 2, height: "40px", px: "0px" }}
+      startIcon={<FcGoogle size={20} />}
+    >
+      <Typography
+        variant="body2"
+        sx={{ color: "text.secondary.main", fontWeight: "Bold" }}
       >
-        <Typography
-          variant="body2"
-          sx={{ color: "text.secondary.main", fontWeight: "Bold" }}
-        >
-          Sign up with google
-        </Typography>
-      </Button>
-    );
-  };
-
+        Sign up with google
+      </Typography>
+    </Button>
+  );
+};

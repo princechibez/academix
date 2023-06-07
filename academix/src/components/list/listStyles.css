@@ -1,0 +1,28 @@
+.list {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+  
+  .card {
+    width: 350px;
+    height: 350px;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 2px 3px 9px #aaa;
+  }
+  
+  .info-wrap {
+    display: flex;
+    flex-flow: column;
+    gap: 8px;
+    padding: 8px 16px;
+  }
+  

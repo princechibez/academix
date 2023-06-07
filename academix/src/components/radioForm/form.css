@@ -7,8 +7,13 @@
 }
 .form {
   width: 360px;
-  height: 270px;
+  /* height: 270px; */
   margin: auto;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
 }
 h1 {
   color: #1d262d;
@@ -18,21 +23,27 @@ h1 {
   padding-top: 30px;
   padding-bottom: 10px;
 }
-/* .form {
-  width: 300px;
-  margin-left: 20px;
-} */
+form {
+  display: flex;
+  flex-flow: column;
+  gap: 12px;
+  justify-content: space-around;
+  align-items: center;
+}
+
 form span {
   color: #b3b3b3;
-  margin-top: 20px;
   font-size: 18px;
   font-weight: 600;
 }
 .student-option,
 .instructor-option {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #e9e8e8;
   border: 1px solid #b3b3b3;
-  padding: 20px;
+  padding: 32px;
   margin-bottom: 10px;
   width: 300px;
   height: 30px;
@@ -70,7 +81,7 @@ p {
   font-weight: 600;
   cursor: pointer;
 }
-@media screen and (max-width: 900px) and (min-width: 300px) {
+/* @media screen and (max-width: 900px) and (min-width: 300px) {
   .form {
     width: 300px;
     height: 250px;
@@ -127,4 +138,4 @@ p {
     font-size: 12px;
     font-weight: 700;
   }
-}
+} */
