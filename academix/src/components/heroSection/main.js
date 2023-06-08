@@ -5,8 +5,11 @@ import Star1 from "../../assets/images/Star1.png";
 import Star2 from "../../assets/images/Star2.png";
 import Star3 from "../../assets/images/Star3.png";
 import { Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function Main() {
+  const navigate = useNavigate();
+
   return (
     <div className="main-container">
       <div className="left">
@@ -24,7 +27,9 @@ export default function Main() {
           <br /> interactive resources, and personalized learning paths. Join us{" "}
           <br /> today and empower your future!
         </Typography>
-        <Button variant="contained">Join Now</Button>
+        <Button onClick={() => navigate("/join-as")} variant="contained">
+          Join Now
+        </Button>
         {/* </div>
         </div> */}
       </div>

@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./courseListStyles.css";
 import orangeline from "../../assets/images/orangeline.png";
 import purpleline from "../../assets/images/purpleline.png";
 import { Button, Typography } from "@mui/material";
 import List from "../list/list";
-import { courses } from "../../model/courses";
 
 export default function CoursesList(props) {
   return (
@@ -17,9 +16,14 @@ export default function CoursesList(props) {
         </div>
       </div>
       {/* List of courses */}
-      <List data={courses} />
+      <List data={props.data} />
       <Button
-        sx={{ display: "flex", margin: "32px auto", width: 300, padding: "14px 0" }}
+        sx={{
+          display: "flex",
+          margin: "32px auto",
+          width: 300,
+          padding: "14px 0",
+        }}
         variant="contained"
       >
         View More

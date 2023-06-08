@@ -51,17 +51,15 @@
 input:focus {
   outline: none;
 }
-.navigate {
-  font-weight: 500;
-  font-size: 18px;
-  color: #1d262d;
+.category {
+  width: 250px;
 }
 @media (max-width: 950px) {
-  .navigate {display: none;}
+  .category {
+    display: none;
+  }
 }
-.navigate .categories {
-  padding-right: 20px;
-}
+
 .buttons {
   display: flex;
   gap: 16px;
