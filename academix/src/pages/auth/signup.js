@@ -8,38 +8,53 @@ import {
   Typography,
   InputAdornment,
   IconButton,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
 } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "../../utility/axios.config";
+import { AuthContext } from "../../index";
 
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { GoogleSignUp, SignUpBtn } from "../../components/authButton";
 import Authpage from "../../assets/images/authpage_bg.jpg";
+import { categories } from "../../model/categories";
 
 export default function SignUp() {
   const [params] = useSearchParams();
   const navigate = useNavigate();
-
-  React.useEffect(() => {
-    if (!params.get("registerAs")) {
-      navigate("/join-as");
-    }
-  });
+  const { setUser } = React.useContext(AuthContext);
 
   const [showPassword, setShowPassword] = React.useState(false);
   const [firstname, setFirstname] = React.useState();
   const [lastname, setLastname] = React.useState();
   const [email, setEmail] = React.useState();
+  const [userInterests, setUserInterests] = React.useState([]);
+  const [userLevel, setUserLevel] = React.useState("student");
   const [password, setPassword] = React.useState();
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!params.get("registerAs")) {
+      return navigate("/join-as");
+    }
+    setUserLevel(params.get("registerAs"));
+  });
 
   // clear token after 24hrs
   const clearToken = () => {
     setTimeout(() => {
       localStorage.clear("token");
-      console.log("cleared");
     }, 86400);
   };
 
@@ -58,21 +73,36 @@ export default function SignUp() {
     }
   };
 
+  const handleCheckbox = (e, id) => {
+    const value = e.target.value;
+    let newInterests = [...userInterests];
+
+    if (newInterests.includes(value)) {
+      newInterests = newInterests.filter((int) => int !== value);
+      return setUserInterests(newInterests);
+    }
+    newInterests.push(value);
+    setUserInterests(newInterests);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // get the radio value appended to the url query
-    const userLevel = params.get("registerAs");
-    const formData = {
-      firstname,
-      lastname,
-      email,
-      password,
-      userLevel,
-      user_interests: ["programming", "music", "arts", "science"],
-    };
-    const initialToastID = toast.loading("We're Registering you...");
     // Send signup request
+    const initialToastID = toast.loading("We're Registering you...");
     try {
+      // get the radio value appended to the url query
+      if (userInterests.length === 0) {
+        throw new Error("Please select at least one category");
+      }
+      const formData = {
+        firstname,
+        lastname,
+        email,
+        password,
+        userLevel,
+        user_interests: userInterests,
+      };
+      console.log(formData);
       const response = await axios.post("/signup", JSON.stringify(formData), {
         headers: { "Content-Type": "application/json" },
       });
@@ -83,7 +113,9 @@ export default function SignUp() {
 
       // save auth token to loacal storage
       localStorage.setItem("token", response.data.data.token);
-      localStorage.setItem("user", response.data.data.newUser);
+      localStorage.setItem("expiresIn", new Date().getUTCHours() + 1);
+      setUser(JSON.stringify(response.data.data.user));
+      localStorage.setItem("user", JSON.stringify(response.data.data.user));
 
       toast.update(initialToastID, {
         render: message,
@@ -91,22 +123,32 @@ export default function SignUp() {
         isLoading: false,
         autoClose: 2000,
       });
+      setDialogOpen(false);
+      navigate("/");
       return clearToken();
     } catch (err) {
-      if (err.message === "timeout of 10000ms exceeded") {
-        return toast.update(initialToastID, {
-          render: "Request timeout",
-          type: "error",
-          isLoading: false,
-          autoClose: 2000,
-        });
+      if (err.message) {
+        let errorMessage = err.message;
+        if (err.message === "timeout of 10000ms exceeded") {
+          errorMessage = "Request timeout";
+          return toast.update(initialToastID, {
+            render: errorMessage,
+            type: "error",
+            isLoading: false,
+            autoClose: 2000,
+          });
+        }
+        if (err.message === "Request failed with status code 400") {
+          if (err.response.data.message) {
+            toast.update(initialToastID, {
+              render: err.response.data.message,
+              type: "error",
+              isLoading: false,
+              autoClose: 2000,
+            });
+          }
+        }
       }
-      toast.update(initialToastID, {
-        render: err.response.data.message,
-        type: "error",
-        isLoading: false,
-        autoClose: 2000,
-      });
     }
   };
 
@@ -148,7 +190,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h4">
           Sign up
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit}>
+        <div>
           <Grid container spacing={1}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -218,7 +260,7 @@ export default function SignUp() {
               />
             </Grid>
           </Grid>
-          <SignUpBtn submit={handleSubmit} />
+          <SignUpBtn submit={() => setDialogOpen(true)} />
           <Divider>
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
               OR
@@ -233,9 +275,43 @@ export default function SignUp() {
               </Link>
             </Grid>
           </Grid>
-        </Box>
+        </div>
       </Box>
       <ToastContainer />
+      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+        <DialogTitle>Select area of interests</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            We will use your selected areas of interest to fetch courses whose
+            category falls within your interest
+          </DialogContentText>
+          <div
+            style={{
+              width: "100%",
+              marginTop: 14,
+              display: "flex",
+              flexFlow: "row",
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
+          >
+            {categories.map((category, index) => (
+              <FormControlLabel
+                key={index}
+                checked={userInterests.includes(category)}
+                onChange={(e) => handleCheckbox(e, index)}
+                style={{ width: "fit-content", padding: 8 }}
+                control={<Checkbox />}
+                label={category}
+                value={category}
+              />
+            ))}
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleSubmit}>Signup</Button>
+        </DialogActions>
+      </Dialog>
     </Grid>
   );
 }

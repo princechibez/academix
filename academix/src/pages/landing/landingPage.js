@@ -7,50 +7,70 @@ import Levelup from "../../components/levelUp/levelUp";
 import Footer from "../../components/footer/footer";
 import CoursesList from "../../components/courseList/courseList";
 import axios from "../../utility/axios.config";
+import { ToastContainer, toast } from "react-toastify";
 import { AuthContext } from "../..";
 
 const LandingPage = () => {
-  const { token, setToken } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
   const [topCourses, setTopCourses] = useState(null);
   const [newCourses, setNewCourses] = useState(null);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const fetchTopCourses = async () => {
       try {
-        const res = await axios.get("/fetch-all-courses?itemsPerPage=9&page=2");
+        const res = await axios.get(
+          `/fetch-all-courses?itemsPerPage=9&page=${page}`
+        );
         setTopCourses(res.data.data);
       } catch (err) {
-        console.log(err);
+        toast.error("Can't fetch courses", {
+          autoClose: 2000,
+        });
       }
     };
 
     const fetchNewCourses = async () => {
       try {
-        const res = await axios.get("/fetch-all-courses?itemsPerPage=9&page=1");
+        const res = await axios.get(
+          `/fetch-all-courses?itemsPerPage=9&page=${page}`
+        );
         setNewCourses(res.data.data);
       } catch (err) {
-        console.log(err);
+        toast.error("Can't fetch courses", {
+          autoClose: 2000,
+        });
       }
     };
 
     fetchTopCourses();
     fetchNewCourses();
-  }, [token]);
+  }, [token, page]);
 
-  const logout = () => {
-    setToken(null);
-    return localStorage.clear("token");
+  const setPageHandler = (pageNumber) => {
+    setPage(pageNumber);
   };
 
   return (
     <>
-      <Nav authenticated={token || localStorage.getItem("token")} onLogout={logout} />
+      <Nav />
       <Main />
       <Range />
-      <CoursesList data={topCourses} headline="Our Top Courses" />
+      <CoursesList
+        pageCount={50 / 10}
+        pageChanged={setPageHandler}
+        data={topCourses}
+        headline="Our Top Courses"
+      />
       <Instructors />
       <Levelup />
-      <CoursesList data={newCourses} headline="New courses" />
+      <CoursesList
+        pageCount={50 / 10}
+        pageChanged={setPageHandler}
+        data={newCourses}
+        headline="New courses"
+      />
+      <ToastContainer />
       <Footer />
     </>
   );

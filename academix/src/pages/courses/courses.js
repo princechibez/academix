@@ -11,6 +11,7 @@ const Courses = () => {
   const { token, setToken } = useContext(AuthContext);
   const [searchCourses, setSearchCourses] = useState(null);
   const [headline, setHeadline] = useState("All Courses");
+  const [page, setPage] = useState(1);
 
   const searchQuery = params.get("query");
   const category = params.get("category");
@@ -27,9 +28,8 @@ const Courses = () => {
       try {
         const res = await axios.get(
           // `/search-courses?itemsPerPage=9&page=2&search=${searchQuery}&category=${category}`
-          `/search-courses?itemsPerPage=12&page=2`
+          `/search-courses?itemsPerPage=12&page=${page}`
         );
-        console.log(res.data)
         setSearchCourses(res.data.data);
       } catch (err) {
         console.log(err);
@@ -37,20 +37,21 @@ const Courses = () => {
     };
 
     fetchSearchCourses();
-  }, [token, searchQuery, category]);
+  }, [token, searchQuery, category, page]);
 
-  const logout = () => {
-    setToken(null);
-    return localStorage.clear("token");
+  const setPageHandler = (pageNumber) => {
+    setPage(pageNumber);
   };
 
   return (
     <>
-      <Nav
-        authenticated={token || localStorage.getItem("token")}
-        onLogout={logout}
+      <Nav />
+      <CoursesList
+        pageCount={50 / 10}
+        pageChanged={setPageHandler}
+        data={searchCourses}
+        headline={headline}
       />
-      <CoursesList data={searchCourses} headline={headline} />
       {/* <CoursesList data={newCourses} headline="New courses" /> */}
       <Footer />
     </>
