@@ -1,108 +1,33 @@
-import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+// import React, { createContext, useEffect, useState } from "react";
+// import ReactDOM from "react-dom/client";
+// import { CssBaseline, ThemeProvider } from "@mui/material";
 
-import Loader from "./components/loader";
-import NotFound from "./pages/404page";
-const Signup = React.lazy(() => import("./pages/auth/signup"));
-const Login = React.lazy(() => import("./pages/auth/signin"));
-const ForgotPassword = React.lazy(() => import("./pages/auth/forgotPassword"));
-const ResetPassword = React.lazy(() => import("./pages/auth/resetPassword"));
-const ResetPasswordSuccess = React.lazy(() =>
-  import("./pages/auth/resetSuccessful")
-);
-const JoiningAs = React.lazy(() => import("./pages/auth/joiningAs"));
-const Landing = React.lazy(() => import("./pages/landing/landingPage"));
-const Review = React.lazy(() => import("./pages/fullReview/fullReview"));
-const Description = React.lazy(() =>
-  import("./pages/course_description/description")
-);
+// import theme from "./styles/theme";
 
-const App = () => {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: (
-        <React.Suspense fallback={<Loader />}>
-          <Landing />
-        </React.Suspense>
-      ),
-    },
-    {
-      path: "/Join-as",
-      element: (
-        <React.Suspense fallback={<Loader />}>
-          <JoiningAs />
-        </React.Suspense>
-      ),
-    },
-    {
-      path: "/signup",
-      element: (
-        <React.Suspense fallback={<Loader />}>
-          <Signup />
-        </React.Suspense>
-      ),
-    },
-    {
-      path: "/signin",
-      element: (
-        <React.Suspense fallback={<Loader />}>
-          <Login />
-        </React.Suspense>
-      ),
-    },
-    {
-      path: "/forgot-password",
-      element: (
-        <React.Suspense fallback={<Loader />}>
-          <ForgotPassword />
-        </React.Suspense>
-      ),
-    },
-    {
-      path: "/reset-password",
-      element: (
-        <React.Suspense fallback={<Loader />}>
-          <ResetPassword />
-        </React.Suspense>
-      ),
-    },
-    {
-      path: "/reset-password-successfull",
-      element: (
-        <React.Suspense fallback={<Loader />}>
-          <ResetPasswordSuccess />
-        </React.Suspense>
-      ),
-    },
-    {
-      path: "/course-description/:courseID",
-      element: (
-        <React.Suspense fallback={<Loader />}>
-          <Description />
-        </React.Suspense>
-      ),
-    },
-    {
-      path: "/reviews",
-      element: (
-        <React.Suspense fallback={<Loader />}>
-          <Review />
-        </React.Suspense>
-      ),
-    },
-    {
-      path: "*",
-      element: (
-        <React.Suspense fallback={<Loader />}>
-          <NotFound />
-        </React.Suspense>
-      ),
-    },
-  ]);
+// import Router from "./Router";
 
-  // return router
-  return <RouterProvider router={router} />;
-};
+// export const AuthContext = createContext(null);
 
-export default App;
+// const App = () => {
+//   const [token, setToken] = useState(null);
+
+//   useEffect(() => {
+//     const token = localStorage.getItem("token");
+//     console.log(token);
+//     setToken(token);
+//   }, []);
+
+//   return (
+//     <React.StrictMode>
+//       <ThemeProvider theme={theme}>
+//         <CssBaseline>
+//           <AuthContext.Provider value={{ token }}>
+//             <Router />
+//           </AuthContext.Provider>
+//         </CssBaseline>
+//       </ThemeProvider>
+//     </React.StrictMode>
+//   );
+// };
+
+// export default App;

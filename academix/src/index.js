@@ -1,20 +1,33 @@
-import React from "react";
+import React, { createContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
 import theme from "./styles/theme";
 
-import App from './App'
+import Router from "./Router";
 
-const app = (
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline>
-        <App />
-      </CssBaseline>
-    </ThemeProvider>
-  </React.StrictMode>
-);
+export const AuthContext = createContext(null);
+
+const App = () => {
+  const [token, setToken] = useState();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setToken(token);
+  }, [token]);
+
+  return (
+    <React.StrictMode>
+      <ThemeProvider theme={theme}>
+        <CssBaseline>
+          <AuthContext.Provider value={{ token, setToken }}>
+            <Router />
+          </AuthContext.Provider>
+        </CssBaseline>
+      </ThemeProvider>
+    </React.StrictMode>
+  );
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(app);
+root.render(<App />);

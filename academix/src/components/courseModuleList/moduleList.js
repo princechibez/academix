@@ -38,7 +38,6 @@ const Module = ({ moduleContent }) => {
         >
           {moduleContent.contents.map(
             (content) => (
-              console.log(content),
               (
                 <ListItemButton sx={{ pl: 4 }}>
                   <ListItemIcon>

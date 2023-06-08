@@ -79,12 +79,13 @@ export default function ResetPassword() {
         isLoading: false,
         autoClose: 1000,
       });
+
       setTimeout(() => {
         navigate("/reset-password-successfull");
       }, 1000);
     } catch (err) {
       toast.update(initialToastID, {
-        render: err.response.data.message,
+        render: err.response.data.message || err.message,
         type: "error",
         isLoading: false,
         autoClose: 2000,

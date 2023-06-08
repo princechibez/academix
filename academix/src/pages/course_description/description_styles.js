@@ -10,6 +10,7 @@ const DescriptionWrapper = styled.main`
 
 const DescriptionHeader = styled.header`
   width: 70%;
+  margin: 30px 0;
 `;
 
 const DescriptionBrief = styled.section`
@@ -27,7 +28,6 @@ const DescriptionBrief = styled.section`
 const PreviewVideo = styled.div`
   width: 55%;
   height: 400px;
-  background-color: red;
 
   ${down("md")} {
     width: 80%;
@@ -37,6 +37,7 @@ const PreviewVideo = styled.div`
 `;
 
 const MediaElement = styled.img`
+  object-fit: cover;
   background-size: contain;
   background-position: center;
 `;
@@ -72,9 +73,9 @@ const PrimaryDescWrapper = styled.div`
   border-radius: 8px;
   background-color: #f6f6f6;
 
-${down("md")} {
-  width: 100%;
-}
+  ${down("md")} {
+    width: 100%;
+  }
 `;
 
 const PrimaryDescList = styled.ul`
