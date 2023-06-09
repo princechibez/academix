@@ -30,7 +30,6 @@ export default function Nav(props) {
   const [userProfile, setUserProfile] = useState();
 
   useEffect(() => {
-    console.log(user)
     setUserProfile(JSON.parse(user));
   });
 

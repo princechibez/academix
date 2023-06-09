@@ -102,7 +102,6 @@ export default function SignUp() {
         userLevel,
         user_interests: userInterests,
       };
-      console.log(formData);
       const response = await axios.post("/signup", JSON.stringify(formData), {
         headers: { "Content-Type": "application/json" },
       });
@@ -114,8 +113,8 @@ export default function SignUp() {
       // save auth token to loacal storage
       localStorage.setItem("token", response.data.data.token);
       localStorage.setItem("expiresIn", new Date().getUTCHours() + 1);
-      setUser(JSON.stringify(response.data.data.user));
-      localStorage.setItem("user", JSON.stringify(response.data.data.user));
+      setUser(JSON.stringify(response.data.data.newUser));
+      localStorage.setItem("user", JSON.stringify(response.data.data.newUser));
 
       toast.update(initialToastID, {
         render: message,
@@ -137,8 +136,7 @@ export default function SignUp() {
             isLoading: false,
             autoClose: 2000,
           });
-        }
-        if (err.message === "Request failed with status code 400") {
+        } else if (err.message === "Request failed with status code 400") {
           if (err.response.data.message) {
             toast.update(initialToastID, {
               render: err.response.data.message,
@@ -147,6 +145,13 @@ export default function SignUp() {
               autoClose: 2000,
             });
           }
+        } else {
+          toast.update(initialToastID, {
+            render: err.message,
+            type: "error",
+            isLoading: false,
+            autoClose: 2000,
+          });
         }
       }
     }

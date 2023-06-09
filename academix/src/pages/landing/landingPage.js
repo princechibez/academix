@@ -14,13 +14,14 @@ const LandingPage = () => {
   const { token } = useContext(AuthContext);
   const [topCourses, setTopCourses] = useState(null);
   const [newCourses, setNewCourses] = useState(null);
-  const [page, setPage] = useState(1);
+  const [topCoursePage, setTopCoursePage] = useState(1);
+  const [newCoursePage, setNewCoursePage] = useState(1);
 
   useEffect(() => {
     const fetchTopCourses = async () => {
       try {
         const res = await axios.get(
-          `/fetch-all-courses?itemsPerPage=9&page=${page}`
+          `/fetch-all-courses?itemsPerPage=9&page=${topCoursePage}`
         );
         setTopCourses(res.data.data);
       } catch (err) {
@@ -33,7 +34,7 @@ const LandingPage = () => {
     const fetchNewCourses = async () => {
       try {
         const res = await axios.get(
-          `/fetch-all-courses?itemsPerPage=9&page=${page}`
+          `/fetch-all-courses?itemsPerPage=9&page=${newCoursePage}`
         );
         setNewCourses(res.data.data);
       } catch (err) {
@@ -45,10 +46,15 @@ const LandingPage = () => {
 
     fetchTopCourses();
     fetchNewCourses();
-  }, [token, page]);
+  }, [token, topCoursePage, newCoursePage]);
 
-  const setPageHandler = (pageNumber) => {
-    setPage(pageNumber);
+  const setPageHandler = (type, pageNumber) => {
+    if (type === "top") {
+      setTopCoursePage(pageNumber);
+    }
+    if (type === "new") {
+      setNewCoursePage(pageNumber);
+    }
   };
 
   return (
@@ -58,7 +64,7 @@ const LandingPage = () => {
       <Range />
       <CoursesList
         pageCount={50 / 10}
-        pageChanged={setPageHandler}
+        pageChanged={(page) => setPageHandler("top", page)}
         data={topCourses}
         headline="Our Top Courses"
       />
@@ -66,7 +72,7 @@ const LandingPage = () => {
       <Levelup />
       <CoursesList
         pageCount={50 / 10}
-        pageChanged={setPageHandler}
+        pageChanged={(page) => setPageHandler("new", page)}
         data={newCourses}
         headline="New courses"
       />
