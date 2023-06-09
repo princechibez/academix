@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./nav.css";
 import logopurple from "../../assets/images/logopurple.png";
 import DP from "../../assets/images/instructor2.png";
@@ -17,13 +17,21 @@ import {
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from "../..";
 
 import { categories } from "../../model/categories";
 
 export default function Nav(props) {
+  const { user, token, setToken } = useContext(AuthContext);
+
   const [searchQuery, setSearchQuery] = React.useState("");
   const [category, setCategory] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState("");
+  const [userProfile, setUserProfile] = useState();
+
+  useEffect(() => {
+    setUserProfile(JSON.parse(user));
+  });
 
   const navigate = useNavigate();
 
@@ -38,9 +46,10 @@ export default function Nav(props) {
     }
 
     if (menuType === "logout") {
-      props.onLogout();
+      setToken(null);
+      localStorage.clear("token");
       toast.info("Logout Succcessfull", {
-        autoClose: 2000,
+        autoClose: 1000,
       });
     }
     setAnchorEl(null);
@@ -70,7 +79,7 @@ export default function Nav(props) {
 
   return (
     <div className="nav" style={{ boxSizing: "border-box" }}>
-      <div className="brand">
+      <div onClick={() => navigate("/")} className="brand">
         <span className="logo">
           <img src={logopurple} alt="logo" width={35} />
         </span>
@@ -112,7 +121,7 @@ export default function Nav(props) {
           </Select>
         </FormControl>
       </div>
-      {props.authenticated ? (
+      {token || localStorage.getItem("token") ? (
         <div>
           <Button
             onClick={handleClick}
@@ -124,7 +133,7 @@ export default function Nav(props) {
             }}
           >
             <img
-              src={DP}
+              src={userProfile?.profilePicture.url}
               alt="profile picture"
               height={50}
               width={50}
@@ -134,7 +143,7 @@ export default function Nav(props) {
               }}
             />
             <Typography fontSize={18} fontWeight={500} variant="body2">
-              Prince Chibez
+              {userProfile?.firstname} {userProfile?.lastname}
             </Typography>
           </Button>
           <Menu

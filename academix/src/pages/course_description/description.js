@@ -71,7 +71,7 @@ const Description = () => {
             {/* primary properties */}
             <PrimaryDescription>
               <EvenButtons>
-                <Button variant="contained">Start</Button>
+                <Button variant="contained">Register</Button>
                 <Button variant="outlined">Add to Wishlist</Button>
               </EvenButtons>
               <PrimaryDescWrapper>
@@ -103,9 +103,6 @@ const Description = () => {
                   </PrimaryDescListItem>
                 </PrimaryDescList>
               </PrimaryDescWrapper>
-              <Typography variant="h6">
-                {courseDetail.category}
-              </Typography>
             </PrimaryDescription>
           </DescriptionBrief>
 

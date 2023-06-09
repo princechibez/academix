@@ -14,12 +14,14 @@ import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "../../utility/axios.config";
+import { AuthContext } from "../../index";
 
-import { GoogleSignIn, SignInBtn } from "../../components/authButton";
+import { SignInBtn } from "../../components/authButton";
 import Authpage from "../../assets/images/authpage_bg.jpg";
 import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
+  const { setUser } = React.useContext(AuthContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
   const [email, setEmail] = React.useState();
@@ -29,7 +31,6 @@ export default function SignIn() {
   const clearToken = () => {
     setTimeout(() => {
       localStorage.clear("token");
-      console.log("cleared");
     }, 86400);
   };
 
@@ -63,7 +64,9 @@ export default function SignIn() {
 
       // save auth and userproperties token to loacal storage
       localStorage.setItem("token", response.data.data.token);
-      localStorage.setItem("user", response.data.data.user);
+      localStorage.setItem("expiresIn", new Date().getUTCHours() + 1);
+      setUser(JSON.stringify(response.data.data.user));
+      localStorage.setItem("user", JSON.stringify(response.data.data.user));
 
       toast.update(initialToastID, {
         render: response.data.message,

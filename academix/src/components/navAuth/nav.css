@@ -10,9 +10,12 @@
   align-items: center;
   gap: 14px;
   background-color: #ffffff;
-  height: 100%;
+  height: 80px;
+  width: 100%;
   box-sizing: border-box;
-  padding: 15px 42px;
+  padding: 15px 24px;
+  position: fixed;
+  z-index: 900;
   /* padding-top: 30px;
   padding-bottom: 30px; */
 }

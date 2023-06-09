@@ -40,7 +40,7 @@ export const SignUpBtn = (props) => {
         p: 0,
       }}
     >
-      Sign Up
+      Continue
     </Button>
   );
 };

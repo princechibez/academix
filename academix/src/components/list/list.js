@@ -10,7 +10,8 @@ function List(props) {
   const goToDetails = (courseID) => {
     navigate(`/course-description/${courseID}`);
   };
-  const data = props.data?.slice(0, 9);
+
+  const data = props.data?.slice(0, 9); 
   return (
     <div className="list">
       {data

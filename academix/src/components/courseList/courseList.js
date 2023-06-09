@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./courseListStyles.css";
 import orangeline from "../../assets/images/orangeline.png";
 import purpleline from "../../assets/images/purpleline.png";
-import { Button, Typography } from "@mui/material";
+import { Box, Button, Pagination, Typography } from "@mui/material";
 import List from "../list/list";
 
 export default function CoursesList(props) {
@@ -17,7 +17,16 @@ export default function CoursesList(props) {
       </div>
       {/* List of courses */}
       <List data={props.data} />
-      <Button
+      <div
+        style={{ margin: "32px 0", display: "flex", justifyContent: "center" }}
+      >
+        <Pagination
+          onChange={(e, v) => props.pageChanged(v)}
+          count={props.pageCount}
+          size="large"
+        />
+      </div>
+      {/* <Button
         sx={{
           display: "flex",
           margin: "32px auto",
@@ -27,7 +36,7 @@ export default function CoursesList(props) {
         variant="contained"
       >
         View More
-      </Button>
+      </Button> */}
     </div>
   );
 }
