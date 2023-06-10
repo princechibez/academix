@@ -3,8 +3,7 @@ import { CssBaseline, ThemeProvider as MUIThemeProvider } from "@mui/material";
 
 import theme from "./styles/theme";
 
-import { RouterProvider } from "react-router-dom";
-import router from "./Router";
+import AppRoutes from "./Router";
 
 export const AuthContext = createContext(null);
 
@@ -29,7 +28,7 @@ const App = () => {
       <MUIThemeProvider theme={theme}>
         <CssBaseline>
           <AuthContext.Provider value={{ token, setToken, user, setUser }}>
-            <RouterProvider router={router} />
+            <AppRoutes />
           </AuthContext.Provider>
         </CssBaseline>
       </MUIThemeProvider>
