@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  createBrowserRouter,
-  createHashRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
 import Loader from "./components/loader";
 import NotFound from "./pages/404page";
@@ -22,7 +18,7 @@ const Description = React.lazy(() =>
   import("./pages/course_description/description")
 );
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: (
