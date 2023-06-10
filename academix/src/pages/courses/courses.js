@@ -3,7 +3,7 @@ import Nav from "../../components/navAuth/nav";
 import Footer from "../../components/footer/footer";
 import CoursesList from "../../components/courseList/courseList";
 import axios from "../../utility/axios.config";
-import { AuthContext } from "../..";
+import { AuthContext } from "../../App";
 import { useSearchParams } from "react-router-dom";
 
 const Courses = () => {

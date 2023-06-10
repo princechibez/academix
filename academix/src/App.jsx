@@ -1,33 +1,40 @@
-// import React, { createContext, useEffect, useState } from "react";
-// import ReactDOM from "react-dom/client";
-// import { CssBaseline, ThemeProvider } from "@mui/material";
+import React, { createContext, useEffect, useState } from "react";
+import { CssBaseline, ThemeProvider as MUIThemeProvider } from "@mui/material";
 
-// import theme from "./styles/theme";
+import theme from "./styles/theme";
 
-// import Router from "./Router";
+import { RouterProvider } from "react-router-dom";
+import router from "./Router";
 
-// export const AuthContext = createContext(null);
+export const AuthContext = createContext(null);
 
-// const App = () => {
-//   const [token, setToken] = useState(null);
+const App = () => {
+  const [token, setToken] = useState();
+  const [user, setUser] = useState();
 
-//   useEffect(() => {
-//     const token = localStorage.getItem("token");
-//     console.log(token);
-//     setToken(token);
-//   }, []);
+  useEffect(() => {
+    const expiresIn = localStorage.getItem("expiresIn");
+    // if (expiresIn > new Date().getUTCDate()) {
+    //   localStorage.clear("token");
+    //   localStorage.clear("expiresIn");
+    // }
+    const token = localStorage.getItem("token");
+    const user = localStorage.getItem("user");
+    setUser(user);
+    setToken(token);
+  }, [token, user]);
 
-//   return (
-//     <React.StrictMode>
-//       <ThemeProvider theme={theme}>
-//         <CssBaseline>
-//           <AuthContext.Provider value={{ token }}>
-//             <Router />
-//           </AuthContext.Provider>
-//         </CssBaseline>
-//       </ThemeProvider>
-//     </React.StrictMode>
-//   );
-// };
+  return (
+    <React.StrictMode>
+      <MUIThemeProvider theme={theme}>
+        <CssBaseline>
+          <AuthContext.Provider value={{ token, setToken, user, setUser }}>
+            <RouterProvider router={router} />
+          </AuthContext.Provider>
+        </CssBaseline>
+      </MUIThemeProvider>
+    </React.StrictMode>
+  );
+};
 
-// export default App;
+export default App;
