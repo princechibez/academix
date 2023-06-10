@@ -23,7 +23,7 @@ import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "../../utility/axios.config";
-import { AuthContext } from "../../index";
+import { AuthContext } from "../../App";
 
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { GoogleSignUp, SignUpBtn } from "../../components/authButton";

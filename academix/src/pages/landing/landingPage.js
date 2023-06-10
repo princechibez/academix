@@ -8,7 +8,7 @@ import Footer from "../../components/footer/footer";
 import CoursesList from "../../components/courseList/courseList";
 import axios from "../../utility/axios.config";
 import { ToastContainer, toast } from "react-toastify";
-import { AuthContext } from "../..";
+import { AuthContext } from "../../App";
 
 const LandingPage = () => {
   const { token } = useContext(AuthContext);
