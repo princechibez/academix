@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+}
+.footer::-webkit-scrollbar {
+  display: none;
+}
+.footer {
+  background-color: #161616;
+  color: #ffffff;
+}
+.footer-nav {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 70px 0px;
+}
+.footer-logo:hover {
+  cursor: pointer;
+}
+.footer-logo span {
+  padding-left: 10px;
+  font-size: 22px;
+  font-weight: 600;
+}
+.nav-title {
+  font-size: 22px;
+  font-weight: 600;
+}
+hr {
+  margin-top: 5px;
+  border: 1px solid #a6a6a6;
+}
+.nav-line {
+  width: 74px;
+}
+.nav-options {
+  margin: 10px 0px;
+  font-size: 18px;
+}
+.copyright-line {
+  border: 1.5px solid #ffffff;
+}
+.copyright {
+  text-align: center;
+  font-size: 18px;
+  padding: 30px 0px;
+}

@@ -1,0 +1,141 @@
+* {
+  margin: 0;
+}
+.nav-logo img {
+  margin: 50px;
+  cursor: pointer;
+}
+.form {
+  width: 360px;
+  /* height: 270px; */
+  margin: auto;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+h1 {
+  color: #1d262d;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  padding-top: 30px;
+  padding-bottom: 10px;
+}
+form {
+  display: flex;
+  flex-flow: column;
+  gap: 12px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+form span {
+  color: #b3b3b3;
+  font-size: 18px;
+  font-weight: 600;
+}
+.student-option,
+.instructor-option {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e9e8e8;
+  border: 1px solid #b3b3b3;
+  padding: 32px;
+  margin-bottom: 10px;
+  width: 300px;
+  height: 30px;
+  border-radius: 16px;
+  cursor: pointer;
+}
+form input[type="radio"] {
+  margin-right: 80px;
+}
+input[type="button"] {
+  color: #ffffff;
+  width: 340px;
+  height: 50px;
+  border: none;
+  background-color: #ffc826;
+  font-weight: 550;
+  font-size: 16px;
+  cursor: pointer;
+}
+p {
+  text-align: center;
+  color: #959595;
+  padding-top: 10px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.account-login {
+  text-align: center;
+  font-size: 15px;
+  margin-top: 15px;
+}
+.signin-link {
+  color: #ff9e00;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+/* @media screen and (max-width: 900px) and (min-width: 300px) {
+  .form {
+    width: 300px;
+    height: 250px;
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+  h1 {
+    font-size: 26px;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    padding-left: 50px;
+  }
+  form .input {
+    margin-right: 100px;
+  }
+  input[type="button"] {
+    width: 250px;
+    height: 30px;
+  }
+  p {
+    padding-top: 15px;
+    padding-left: 20px;
+    font-size: 12px;
+  }
+  form span {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .student-option,
+  .instructor-option {
+    padding: 15px;
+    margin-bottom: 10px;
+    width: 310px;
+    height: 30px;
+  }
+  form input[type="radio"] {
+    margin-right: 0px;
+  }
+  input[type="button"] {
+    width: 340px;
+    height: 50px;
+    font-size: 12px;
+  }
+  p {
+    text-align: center;
+    padding-top: 10px;
+    font-size: 15px;
+  }
+  .account-login {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  .signin-link {
+    font-size: 12px;
+    font-weight: 700;
+  }
+} */

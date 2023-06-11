@@ -1,0 +1,18 @@
+export const categories = [
+  "Web Development",
+  "Business",
+  "Finance",
+  "IT & Software",
+  "Office Productivity",
+  "Office Development",
+  "Design",
+  "Marketing",
+  "Lifestyle",
+  "Photography and Video",
+  "Music",
+  "Health & Fitness",
+  "Teaching and Academics",
+  "Leadership",
+  "Relationship",
+  "Branding",
+];
