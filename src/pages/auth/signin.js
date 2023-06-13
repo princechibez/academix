@@ -77,12 +77,28 @@ export default function SignIn() {
       navigate("/");
       return clearToken();
     } catch (err) {
-      toast.update(initialToastID, {
-        render: err.response.data.message,
-        type: "error",
-        isLoading: false,
-        autoClose: 2000,
-      });
+      if (err.message === "timeout of 10000ms exceeded") {
+        return toast.update(initialToastID, {
+          render: "Request timeout",
+          type: "error",
+          isLoading: false,
+          autoClose: 2000,
+        });
+      } else if (err.message === "Request failed with status code 400") {
+        toast.update(initialToastID, {
+          render: err.response.data.message,
+          type: "error",
+          isLoading: false,
+          autoClose: 2000,
+        });
+      } else {
+        toast.update(initialToastID, {
+          render: err.message,
+          type: "error",
+          isLoading: false,
+          autoClose: 2000,
+        });
+      }
     }
   };
 
