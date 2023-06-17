@@ -21,16 +21,19 @@ import ReactPlayer from "react-player";
 import axios from "../../utility/axios.config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export const ModuleContext = createContext(null);
 
 function CreateCourse() {
   const navigate = useNavigate();
+  const [modeParam] = useSearchParams();
 
   const dialogRef = useRef();
   const previewVidRef = useRef();
 
+  const [mode, setMode] = useState(null);
+  const [courseID, setCourseID] = useState(null);
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
   const [category, setCategory] = useState(null);
@@ -43,7 +46,45 @@ function CreateCourse() {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   useEffect(() => {
-    console.log(sizeof(previewVid) * Math.pow(10, -6));
+    const mode = modeParam.get("mode");
+    const courseID = modeParam.get("courseID");
+    setCourseID(courseID);
+    setMode(mode);
+  }, []);
+
+  useEffect(() => {
+    const fetchCourseDetails = async () => {
+      let transformedModule = [];
+      const courseDetails = await axios.get(
+        `/fetch-course-details/${courseID}`
+      );
+      const fetchedDetails = courseDetails?.data.data;
+      setTitle(fetchedDetails.title);
+      setDescription(fetchedDetails.description);
+      setCategory(fetchedDetails.category);
+      setTargetLearners(fetchedDetails.intended_learners);
+      setPreviewImg(fetchedDetails.thumbnail.url);
+      setPreviewVid(fetchedDetails.preview_video.url);
+
+      for (const module of fetchedDetails.modules) {
+        let currentModule = { ...module };
+        for (const content in module.contents) {
+          currentModule.contents = [...module.contents];
+          const video = currentModule.contents[content].video.url;
+          currentModule.contents[content] = {
+            ...currentModule.contents[content],
+            video,
+          };
+        }
+        transformedModule.push(currentModule);
+      }
+      setCreatedModules(transformedModule);
+    };
+    courseID && fetchCourseDetails();
+  }, [mode]);
+
+  useEffect(() => {
+    // console.log(sizeof(previewVid) * Math.pow(10, -6));
   }, [previewVid]);
 
   const initializeDialog = (module, index) => {
@@ -128,9 +169,14 @@ function CreateCourse() {
       // totalDuration:
     };
 
+    console.log(courseData);
+
     const initialToastID = toast.loading("Uploading course...");
     try {
-      const uploader = await axios.post("/create-course", courseData);
+      const uploader = await axios.post(
+        `/create-course?mode=${mode}&courseID=${courseID}`,
+        courseData
+      );
       toast.update(initialToastID, {
         render: uploader.data.message,
         type: "success",
@@ -199,7 +245,7 @@ function CreateCourse() {
           name="Title"
           multiline
           maxRows={2}
-          value={title}
+          value={title || ""}
         />
         <TextField
           variant="outlined"
@@ -211,7 +257,7 @@ function CreateCourse() {
           name="description"
           multiline
           minRows={3}
-          value={description}
+          value={description || ""}
         />
         <FormControl
           fullWidth
@@ -226,7 +272,7 @@ function CreateCourse() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={category}
+            value={category || ""}
             label="Course Category"
             onChange={categoryChangeHandler}
           >
@@ -252,7 +298,7 @@ function CreateCourse() {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={targetLearners}
+              value={targetLearners || ""}
               label="Intended Learners"
               onChange={learnersHandler}
             >
@@ -421,19 +467,13 @@ function CreateCourse() {
               New Module
             </Button>
             <Button
-              variant="contained"
-              sx={{ p: 2 }}
-              startIcon={<FaSave size={24} />}
-            >
-              Save as Draft
-            </Button>
-            <Button
+              disabled={mode === "edit"}
               onClick={uploadCourseHandler}
               variant="contained"
               sx={{ p: 2 }}
               startIcon={<FaUpload size={24} />}
             >
-              Upload
+              {mode === "edit" ? "Edit Course" : "Upload"}
             </Button>
           </section>
         </FormControl>

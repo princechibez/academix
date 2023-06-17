@@ -1,14 +1,28 @@
-import React from "react";
-import { Typography, Rating, Skeleton, Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Typography, Rating, Skeleton, Box, Button } from "@mui/material";
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 import "./listStyles.css";
+import { FaSave } from "react-icons/fa";
+import { AuthContext } from "../../App";
 
 function List(props) {
+  const { user } = useContext(AuthContext);
+  const [currentUser, setUser] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setUser(JSON.parse(user));
+  }, []);
 
   const goToDetails = (courseID) => {
     navigate(`/course-description/${courseID}`);
+  };
+
+  const editCourseHandler = (ID) => {
+    navigate(
+      `/dashboard/instructor/create-course?mode=edit&courseID=${ID}`
+    );
   };
 
   const data = props.data?.slice(0, 9);
@@ -16,7 +30,14 @@ function List(props) {
     <div className="list">
       {data
         ? data.map((item, index) => (
-            <div onClick={() => goToDetails(item._id)} className="card">
+            <div
+              onClick={() => {
+                item.instructor === currentUser.instructorID
+                  ? editCourseHandler(item._id)
+                  : goToDetails(item._id);
+              }}
+              className="card"
+            >
               <div
                 style={{
                   height: "55%",
@@ -48,6 +69,19 @@ function List(props) {
                   precision={0.5}
                 />
               </div>
+              {item.instructor === currentUser.instructorID && (
+                <div style={{ display: "flex", gap: 12 }}>
+                  {item.draft && (
+                    <Button
+                      variant="contained"
+                      sx={{ alignSelf: "flex-end" }}
+                      startIcon={<FaSave size={14} />}
+                    >
+                      Draft
+                    </Button>
+                  )}
+                </div>
+              )}
             </div>
           ))
         : [..."12345678"].map((el, i) => (
