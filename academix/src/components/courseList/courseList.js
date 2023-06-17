@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./courseListStyles.css";
 import orangeline from "../../assets/images/orangeline.png";
 import purpleline from "../../assets/images/purpleline.png";
-import { Box, Button, Pagination, Typography } from "@mui/material";
+import { Pagination, Typography } from "@mui/material";
 import List from "../list/list";
 
 export default function CoursesList(props) {
   return (
     <div className="courses">
       <div className="headline">
-        <Typography variant="h3">{props.headline}</Typography>
+        <Typography variant="h3">{props?.headline}</Typography>
         <div className="lines">
           <img src={orangeline} alt="orange line" />
           <img src={purpleline} alt="purple line" />

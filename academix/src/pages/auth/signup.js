@@ -123,7 +123,9 @@ export default function SignUp() {
         autoClose: 2000,
       });
       setDialogOpen(false);
-      navigate("/");
+      if (response.data.data.newUser.userLevel === "instructor") {
+        navigate("/dashboard/instructor/courses");
+      }
       return clearToken();
     } catch (err) {
       if (err.message) {

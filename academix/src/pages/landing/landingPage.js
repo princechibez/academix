@@ -21,7 +21,7 @@ const LandingPage = () => {
     const fetchTopCourses = async () => {
       try {
         const res = await axios.get(
-          `/fetch-all-courses?itemsPerPage=9&page=${topCoursePage}`
+          `/fetch-all-courses?itemsPerPage=8&page=${topCoursePage}`
         );
         setTopCourses(res.data.data);
       } catch (err) {
@@ -34,7 +34,7 @@ const LandingPage = () => {
     const fetchNewCourses = async () => {
       try {
         const res = await axios.get(
-          `/fetch-all-courses?itemsPerPage=9&page=${newCoursePage}`
+          `/fetch-all-courses?itemsPerPage=8&page=${newCoursePage}`
         );
         setNewCourses(res.data.data);
       } catch (err) {
@@ -63,7 +63,7 @@ const LandingPage = () => {
       <Main />
       <Range />
       <CoursesList
-        pageCount={50 / 10}
+        pageCount={60 / 10}
         pageChanged={(page) => setPageHandler("top", page)}
         data={topCourses}
         headline="Our Top Courses"

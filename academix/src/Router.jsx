@@ -13,6 +13,9 @@ const ResetPasswordSuccess = React.lazy(() =>
 );
 const JoiningAs = React.lazy(() => import("./pages/auth/joiningAs"));
 const Landing = React.lazy(() => import("./pages/landing/landingPage"));
+const InstructorDB = React.lazy(() =>
+  import("./pages/dashboards/instructor.dash")
+);
 const Review = React.lazy(() => import("./pages/fullReview/fullReview"));
 const Description = React.lazy(() =>
   import("./pages/course_description/description")
@@ -97,6 +100,19 @@ const App = () => {
       element: (
         <React.Suspense fallback={<Loader />}>
           <Review />
+        </React.Suspense>
+      ),
+    },
+    {
+      path: "/dashboard/instructor",
+      children: [
+        {
+          path: "/dashboard/instructor/:section"
+        }
+      ],
+      element: (
+        <React.Suspense fallback={<Loader />}>
+          <InstructorDB />
         </React.Suspense>
       ),
     },

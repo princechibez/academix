@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Typography } from "@mui/material";
+import { Box, Button, Skeleton, Typography } from "@mui/material";
 import { FiThumbsUp } from "react-icons/fi";
 import { BsPeople } from "react-icons/bs";
 import { LuFileVideo } from "react-icons/lu";
@@ -31,6 +31,7 @@ import { course } from "../../model/course";
 import Review from "../../components/reviews/review";
 import InstructorProfile from "../../components/instructorProfile/instructorProfile";
 import axios from "../../utility/axios.config";
+import ReactPlayer from "react-player";
 
 const Description = () => {
   const navigate = useNavigate();
@@ -53,20 +54,28 @@ const Description = () => {
   return (
     <React.Fragment>
       <Nav />
-      {courseDetail && (
+      {courseDetail ? (
         <DescriptionWrapper>
           <DescriptionHeader>
             {/* Course title */}
-            <Typography variant="h4">{courseDetail.title}</Typography>
+            <Typography variant="h4">{courseDetail?.title}</Typography>
             {/* Instructor name */}
-            <Typography variant="h6">{courseDetail.category}</Typography>
+            <Typography variant="h6">{courseDetail?.category}</Typography>
           </DescriptionHeader>
 
           <DescriptionBrief>
             {/* course preview video thumbnail */}
             <PreviewVideo>
               {/* video tag here... */}
-              <MediaElement src={courseDetail.thumbnail.url} height="100%" width="100%" />
+              <ReactPlayer
+                url={courseDetail?.preview_video.url}
+                height="100%"
+                width="100%"
+                style={{
+                  objectFit: "cover",
+                }}
+                controls
+              />
             </PreviewVideo>
             {/* primary properties */}
             <PrimaryDescription>
@@ -79,17 +88,23 @@ const Description = () => {
                   {/* review */}
                   <PrimaryDescListItem>
                     <FiThumbsUp size={20} />
-                    <Typography>{courseDetail.totalReviewers} Positive reviews</Typography>
+                    <Typography>
+                      {courseDetail?.totalReviewers} Positive reviews
+                    </Typography>
                     {/* students count */}
                   </PrimaryDescListItem>
                   <PrimaryDescListItem>
                     <BsPeople size={20} />
-                    <Typography>{courseDetail.registered_students.length} students</Typography>
+                    <Typography>
+                      {courseDetail?.registered_students.length} students
+                    </Typography>
                   </PrimaryDescListItem>
                   {/* course duration */}
                   <PrimaryDescListItem>
                     <LuFileVideo size={20} />
-                    <Typography>{courseDetail.modules.length} Modules</Typography>
+                    <Typography>
+                      {courseDetail?.modules.length} Modules
+                    </Typography>
                   </PrimaryDescListItem>
                   {/* download resources count */}
                   <PrimaryDescListItem>
@@ -112,7 +127,7 @@ const Description = () => {
               Description
             </Typography>
             <Typography variant="subtitle">
-              {courseDetail.description}
+              {courseDetail?.description}
             </Typography>
           </DescTextSection>
 
@@ -133,7 +148,7 @@ const Description = () => {
 
             {/* Content List and dropdown section */}
             <div style={{ margin: "32px 0" }}>
-              {courseDetail.modules.map((content, index) => (
+              {courseDetail?.modules.map((content, index) => (
                 <Module moduleContent={content} key={index} />
               ))}
             </div>
@@ -165,6 +180,58 @@ const Description = () => {
           {/* Related courses section */}
           {/* <Topcourses /> */}
         </DescriptionWrapper>
+      ) : (
+        <Box
+          sx={{
+            height: "100vh",
+            width: "100%",
+            display: "flex",
+            flexFlow: "column",
+            pr: 2,
+            padding: 12,
+          }}
+        >
+          <Box sx={{ pt: 2, display: "flex", flexFlow: "column", gap: 2 }}>
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              style={{ borderRadius: 8 }}
+              width={200}
+            />
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              style={{ borderRadius: 8 }}
+              width={250}
+            />
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              width="80%"
+              height={300}
+            />
+          </Box>
+          <Box sx={{ pt: 1 }}>
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              style={{ margin: "4px 0", borderRadius: 8 }}
+              width="60%"
+            />
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              style={{ margin: "4px 0", borderRadius: 8 }}
+              width="90%"
+            />
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              style={{ margin: "4px 0", borderRadius: 8 }}
+              width="50%"
+            />
+          </Box>
+        </Box>
       )}
       <Footer />
     </React.Fragment>

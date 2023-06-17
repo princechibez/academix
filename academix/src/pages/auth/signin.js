@@ -31,7 +31,7 @@ export default function SignIn() {
   const clearToken = () => {
     setTimeout(() => {
       localStorage.clear("token");
-    }, 86400);
+    }, 8640000);
   };
 
   React.useEffect(() => {
@@ -74,15 +74,33 @@ export default function SignIn() {
         isLoading: false,
         autoClose: 2000,
       });
-      navigate("/");
+      if (response.data.data.user.userLevel === "instructor") {
+        navigate("/dashboard/instructor/courses");
+      }
       return clearToken();
     } catch (err) {
-      toast.update(initialToastID, {
-        render: err.response.data.message,
-        type: "error",
-        isLoading: false,
-        autoClose: 2000,
-      });
+      if (err.message === "timeout of 10000ms exceeded") {
+        return toast.update(initialToastID, {
+          render: "Request timeout",
+          type: "error",
+          isLoading: false,
+          autoClose: 2000,
+        });
+      } else if (err.message === "Request failed with status code 400") {
+        toast.update(initialToastID, {
+          render: err.response.data.message,
+          type: "error",
+          isLoading: false,
+          autoClose: 2000,
+        });
+      } else {
+        toast.update(initialToastID, {
+          render: err.message,
+          type: "error",
+          isLoading: false,
+          autoClose: 2000,
+        });
+      }
     }
   };
 

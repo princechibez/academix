@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { CssBaseline, ThemeProvider as MUIThemeProvider } from "@mui/material";
+import { ProSidebarProvider } from "react-pro-sidebar";
 
 import theme from "./styles/theme";
 
@@ -25,13 +26,15 @@ const App = () => {
 
   return (
     <React.StrictMode>
-      <MUIThemeProvider theme={theme}>
-        <CssBaseline>
-          <AuthContext.Provider value={{ token, setToken, user, setUser }}>
-            <AppRoutes />
-          </AuthContext.Provider>
-        </CssBaseline>
-      </MUIThemeProvider>
+      <ProSidebarProvider>
+        <MUIThemeProvider theme={theme}>
+          <CssBaseline>
+            <AuthContext.Provider value={{ token, setToken, user, setUser }}>
+              <AppRoutes />
+            </AuthContext.Provider>
+          </CssBaseline>
+        </MUIThemeProvider>
+      </ProSidebarProvider>
     </React.StrictMode>
   );
 };

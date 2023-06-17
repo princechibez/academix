@@ -16,3 +16,5 @@ export const categories = [
   "Relationship",
   "Branding",
 ];
+
+export const intendedLearners = ["Beginner", "Intermediate", "Advanced", "Any"];

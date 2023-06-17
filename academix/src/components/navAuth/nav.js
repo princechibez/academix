@@ -31,7 +31,7 @@ export default function Nav(props) {
 
   useEffect(() => {
     setUserProfile(JSON.parse(user));
-  });
+  }, []);
 
   const navigate = useNavigate();
 
@@ -42,7 +42,9 @@ export default function Nav(props) {
 
   const handleMenuSelect = (menuType) => {
     if (menuType === "profile") {
-      navigate("/profile");
+      if (userProfile.userLevel === "instructor") {
+        navigate("/dashboard/instructor/profile");
+      }
     }
 
     if (menuType === "logout") {
@@ -53,6 +55,7 @@ export default function Nav(props) {
       });
     }
     setAnchorEl(null);
+    navigate("/signin")
   };
 
   const handleClose = () => {

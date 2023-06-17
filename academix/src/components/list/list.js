@@ -11,7 +11,7 @@ function List(props) {
     navigate(`/course-description/${courseID}`);
   };
 
-  const data = props.data?.slice(0, 9); 
+  const data = props.data?.slice(0, 9);
   return (
     <div className="list">
       {data
@@ -19,7 +19,7 @@ function List(props) {
             <div onClick={() => goToDetails(item._id)} className="card">
               <div
                 style={{
-                  height: "60%",
+                  height: "55%",
                   width: "100%",
                   backgroundSize: "cover",
                 }}
@@ -34,7 +34,12 @@ function List(props) {
               </div>
               <div className="info-wrap">
                 <Typography variant="body1">{item.category}</Typography>
-                <Typography variant="h6" lineHeight={1.2}>
+                <Typography
+                  variant="body1"
+                  lineHeight={1.2}
+                  fontWeight={600}
+                  fontSize={16}
+                >
                   {item.title}
                 </Typography>
                 <Rating
@@ -45,12 +50,12 @@ function List(props) {
               </div>
             </div>
           ))
-        : [..."123456789"].map((el, i) => (
+        : [..."12345678"].map((el, i) => (
             <Box
               key={i}
               sx={{
-                height: 350,
-                width: 350,
+                height: 250,
+                width: 280,
                 display: "flex",
                 flexFlow: "column",
                 pr: 2,

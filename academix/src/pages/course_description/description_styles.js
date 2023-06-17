@@ -21,7 +21,7 @@ const DescriptionBrief = styled.section`
 
   ${down("lg")} {
     flex-direction: column;
-    gap: 14px;
+    gap: 24px;
   }
 `;
 
@@ -29,9 +29,9 @@ const PreviewVideo = styled.div`
   width: 55%;
   height: 400px;
 
-  ${down("md")} {
-    width: 80%;
-    height: 300px;
+  ${down("lg")} {
+    width: 100%;
+    height: 400px;
     align-self: center;
   }
 `;
@@ -52,7 +52,6 @@ const PrimaryDescription = styled.div`
 
   ${down("lg")} {
     width: 80%;
-    align-self: center;
   }
 `;
 
