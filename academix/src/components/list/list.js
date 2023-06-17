@@ -32,7 +32,7 @@ function List(props) {
         ? data.map((item, index) => (
             <div
               onClick={() => {
-                item.instructor === currentUser.instructorID
+                item.instructor === currentUser?.instructorID
                   ? editCourseHandler(item._id)
                   : goToDetails(item._id);
               }}
@@ -69,7 +69,7 @@ function List(props) {
                   precision={0.5}
                 />
               </div>
-              {item.instructor === currentUser.instructorID && (
+              {item.instructor === currentUser?.instructorID && (
                 <div style={{ display: "flex", gap: 12 }}>
                   {item.draft && (
                     <Button
