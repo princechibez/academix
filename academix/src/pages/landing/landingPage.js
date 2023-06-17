@@ -14,8 +14,8 @@ const LandingPage = () => {
   const { token } = useContext(AuthContext);
   const [topCourses, setTopCourses] = useState(null);
   const [newCourses, setNewCourses] = useState(null);
-  const [topCoursePage, setTopCoursePage] = useState(1);
-  const [newCoursePage, setNewCoursePage] = useState(1);
+  const [topCoursePage, setTopCoursePage] = useState(0);
+  const [newCoursePage, setNewCoursePage] = useState(0);
 
   useEffect(() => {
     const fetchTopCourses = async () => {

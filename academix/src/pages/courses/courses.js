@@ -11,7 +11,7 @@ const Courses = () => {
   const { token, setToken } = useContext(AuthContext);
   const [searchCourses, setSearchCourses] = useState(null);
   const [headline, setHeadline] = useState("All Courses");
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   const searchQuery = params.get("query");
   const category = params.get("category");
