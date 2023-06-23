@@ -20,6 +20,7 @@ const Review = React.lazy(() => import("./pages/fullReview/fullReview"));
 const Description = React.lazy(() =>
   import("./pages/course_description/description")
 );
+const Classroom = React.lazy(() => import("./pages/classroom/classroom"));
 
 const App = () => {
   const router = createBrowserRouter([
@@ -96,6 +97,14 @@ const App = () => {
       ),
     },
     {
+      path: "/classroom/:courseID",
+      element: (
+        <React.Suspense fallback={<Loader />}>
+          <Classroom />
+        </React.Suspense>
+      ),
+    },
+    {
       path: "/reviews",
       element: (
         <React.Suspense fallback={<Loader />}>
@@ -107,8 +116,8 @@ const App = () => {
       path: "/dashboard/instructor",
       children: [
         {
-          path: "/dashboard/instructor/:section"
-        }
+          path: "/dashboard/instructor/:section",
+        },
       ],
       element: (
         <React.Suspense fallback={<Loader />}>

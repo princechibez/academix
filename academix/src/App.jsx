@@ -5,6 +5,7 @@ import { ProSidebarProvider } from "react-pro-sidebar";
 import theme from "./styles/theme";
 
 import AppRoutes from "./Router";
+import { timer } from "./utility/logoutTimer";
 
 export const AuthContext = createContext(null);
 
@@ -12,12 +13,11 @@ const App = () => {
   const [token, setToken] = useState();
   const [user, setUser] = useState();
 
+  setInterval(() => {
+    timer()
+  }, 1000);
+
   useEffect(() => {
-    const expiresIn = localStorage.getItem("expiresIn");
-    // if (expiresIn > new Date().getUTCDate()) {
-    //   localStorage.clear("token");
-    //   localStorage.clear("expiresIn");
-    // }
     const token = localStorage.getItem("token");
     const user = localStorage.getItem("user");
     setUser(user);
@@ -29,7 +29,9 @@ const App = () => {
       <ProSidebarProvider>
         <MUIThemeProvider theme={theme}>
           <CssBaseline>
-            <AuthContext.Provider value={{ token, setToken, user, setUser }}>
+            <AuthContext.Provider
+              value={{ token, setToken, user, setUser }}
+            >
               <AppRoutes />
             </AuthContext.Provider>
           </CssBaseline>

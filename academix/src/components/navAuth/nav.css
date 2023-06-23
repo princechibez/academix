@@ -10,12 +10,13 @@
   align-items: center;
   gap: 14px;
   background-color: #ffffff;
-  height: 80px;
+  height: 70px;
   width: 100%;
   box-sizing: border-box;
   padding: 15px 24px;
   position: fixed;
   z-index: 900;
+  box-shadow: 2px 2px 4px #aaa;
   /* padding-top: 30px;
   padding-bottom: 30px; */
 }

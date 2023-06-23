@@ -6,6 +6,7 @@ const DescriptionWrapper = styled.main`
   width: 100%;
   padding: 12px 32px;
   box-sizing: border-box;
+  padding-top: 80px;
 `;
 
 const DescriptionHeader = styled.header`
@@ -80,7 +81,7 @@ const PrimaryDescWrapper = styled.div`
 const PrimaryDescList = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 14px;
   width: 80%;
   align-items: flex-start;
 `;
@@ -104,7 +105,6 @@ const CourseContentSection = styled.section`
   margin: 32px 0;
   display: flex;
   flex-flow: column;
-  gap: 8px;
 `;
 
 const CourseContentText = styled.div`

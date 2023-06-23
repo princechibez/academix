@@ -20,9 +20,7 @@ function List(props) {
   };
 
   const editCourseHandler = (ID) => {
-    navigate(
-      `/dashboard/instructor/create-course?mode=edit&courseID=${ID}`
-    );
+    navigate(`/dashboard/instructor/create-course?mode=edit&courseID=${ID}`);
   };
 
   const data = props.data?.slice(0, 9);
@@ -31,6 +29,7 @@ function List(props) {
       {data
         ? data.map((item, index) => (
             <div
+              key={index}
               onClick={() => {
                 item.instructor === currentUser?.instructorID
                   ? editCourseHandler(item._id)
@@ -53,23 +52,42 @@ function List(props) {
                   alt="Software development"
                 />
               </div>
-              <div className="info-wrap">
+              <div
+                style={{
+                  width: "90%",
+                  paddingLeft: 10,
+                  boxSizing: "border-box",
+                }}
+              >
                 <Typography variant="body1">{item.category}</Typography>
                 <Typography
                   variant="body1"
                   lineHeight={1.2}
+                  maxWidth="90%"
+                  sx={{ pb: 2, WebkitLineClamp: 2 }}
                   fontWeight={600}
                   fontSize={16}
                 >
                   {item.title}
                 </Typography>
-                <Rating
-                  readOnly
-                  value={item.averageRateValue}
-                  precision={0.5}
-                />
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    alignSelf: "flex-start",
+                    justifyContent: "space-between",
+                    width: "100%",
+                  }}
+                >
+                  <Rating
+                    readOnly
+                    value={item.averageRateValue}
+                    precision={0.5}
+                  />
+                  <Typography fontWeight={600}>NGN {item.price}</Typography>
+                </div>
               </div>
-              {item.instructor === currentUser?.instructorID && (
+              {/* {item.instructor === currentUser?.instructorID && (
                 <div style={{ display: "flex", gap: 12 }}>
                   {item.draft && (
                     <Button
@@ -81,7 +99,7 @@ function List(props) {
                     </Button>
                   )}
                 </div>
-              )}
+              )} */}
             </div>
           ))
         : [..."12345678"].map((el, i) => (

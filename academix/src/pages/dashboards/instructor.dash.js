@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Nav from "../../components/navAuth/nav";
 import Footer from "../../components/footer/footer";
@@ -14,12 +14,21 @@ import {
 import { AuthContext } from "../../App";
 
 function InstructorDB() {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const [currentUser, setCurrentUser] = useState();
 
   const { section } = useParams();
   const [visualCMP, setVisualCMP] = useState(<Profile />); //  CMP for component...
 
   useEffect(() => {
+    if (currentUser && !currentUser?.isInstructor || !user) {
+      navigate("/signin");
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    setCurrentUser(JSON.parse(user));
     switch (section) {
       case "profile":
         return setVisualCMP(<Profile />);

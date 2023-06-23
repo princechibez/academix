@@ -8,7 +8,7 @@ import { useSearchParams } from "react-router-dom";
 
 const Courses = () => {
   const [params] = useSearchParams();
-  const { token, setToken } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
   const [searchCourses, setSearchCourses] = useState(null);
   const [headline, setHeadline] = useState("All Courses");
   const [page, setPage] = useState(0);
@@ -28,7 +28,7 @@ const Courses = () => {
       try {
         const res = await axios.get(
           // `/search-courses?itemsPerPage=9&page=2&search=${searchQuery}&category=${category}`
-          `/search-courses?itemsPerPage=12&page=${page}`
+          `/search-courses?itemsPerPage=12&page=${page}&search=${searchQuery}&category=${category}`
         );
         setSearchCourses(res.data.data);
       } catch (err) {

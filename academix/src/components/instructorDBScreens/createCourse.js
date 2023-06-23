@@ -10,7 +10,13 @@ import {
 } from "@mui/material";
 import { GoCloudUpload } from "react-icons/go";
 import { MdOutlineAddCircle } from "react-icons/md";
-import React, { createContext, useEffect, useRef, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { categories, intendedLearners } from "../../model/categories";
 import DropZone from "react-dropzone";
 import ModuleCard from "../module/moduleCard";
@@ -22,10 +28,12 @@ import axios from "../../utility/axios.config";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { AuthContext } from "../../App";
 
 export const ModuleContext = createContext(null);
 
 function CreateCourse() {
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [modeParam] = useSearchParams();
 
@@ -33,6 +41,8 @@ function CreateCourse() {
   const previewVidRef = useRef();
 
   const [mode, setMode] = useState(null);
+  const [accessProtocol, setAccessPtorocol] = useState("Free");
+  const [price, setPrice] = useState(null);
   const [courseID, setCourseID] = useState(null);
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
@@ -59,12 +69,15 @@ function CreateCourse() {
         `/fetch-course-details/${courseID}`
       );
       const fetchedDetails = courseDetails?.data.data;
+      console.log(fetchedDetails)
       setTitle(fetchedDetails.title);
       setDescription(fetchedDetails.description);
       setCategory(fetchedDetails.category);
       setTargetLearners(fetchedDetails.intended_learners);
       setPreviewImg(fetchedDetails.thumbnail.url);
       setPreviewVid(fetchedDetails.preview_video.url);
+      setPrice(fetchedDetails.price);
+      setAccessPtorocol(fetchedDetails.accessProtocol);
 
       for (const module of fetchedDetails.modules) {
         let currentModule = { ...module };
@@ -158,7 +171,10 @@ function CreateCourse() {
   };
 
   const uploadCourseHandler = async () => {
+    const currentUser = JSON.parse(user);
     const courseData = {
+      accessProtocol,
+      price: price && Number(price),
       thumbnail: previewImg,
       preview_video: previewVid,
       title: title,
@@ -166,12 +182,11 @@ function CreateCourse() {
       category: category,
       intended_learners: targetLearners,
       modules: createdModules,
+      instructorName: `${currentUser.firstname} ${currentUser.lastname}`,
       // totalDuration:
     };
 
-    console.log(courseData);
-
-    const initialToastID = toast.loading("Uploading course...");
+    const initialToastID = toast.loading("Please wait, Uploading course...");
     try {
       const uploader = await axios.post(
         `/create-course?mode=${mode}&courseID=${courseID}`,
@@ -309,6 +324,42 @@ function CreateCourse() {
               ))}
             </Select>
           </FormControl>
+
+          <FormControl
+            fullWidth
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexFlow: "column",
+              gap: 2,
+            }}
+          >
+            <InputLabel id="demo-simple-select-label">
+              Access Protocol
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={accessProtocol || ""}
+              label="Intended Learners"
+              onChange={(e) => setAccessPtorocol(e.target.value)}
+            >
+              <MenuItem value="Free">Free</MenuItem>
+              <MenuItem value="Paid">Paid</MenuItem>
+            </Select>
+          </FormControl>
+
+          {accessProtocol === "Paid" && (
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              onChange={(e) => setPrice(e.target.value)}
+              label="Add price"
+              name="Price"
+              value={price || ""}
+            />
+          )}
 
           {/* Course thumnail picture */}
           <Typography variant="h6">Select Thumbnail image</Typography>
@@ -467,7 +518,7 @@ function CreateCourse() {
               New Module
             </Button>
             <Button
-              disabled={mode === "edit"}
+              // disabled={mode === "edit"}
               onClick={uploadCourseHandler}
               variant="contained"
               sx={{ p: 2 }}

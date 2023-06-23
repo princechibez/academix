@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "../../utility/axios.config";
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Courses(props) {
   const navigate = useNavigate();
@@ -16,11 +18,22 @@ function Courses(props) {
 
   useEffect(() => {
     const fetchSearchCourses = async () => {
+      const initialToastID = toast;
       try {
-        const res = await axios.get(`/instructor-courses/${user?.instructorID}`);
+        const res = await axios.get(
+          `/instructor-courses/${user?.instructorID}`
+        );
         setInstructorCourses(res.data.data);
+        toast.done(initialToastID);
       } catch (err) {
-        console.log(err);
+        if (err.response.data.message === "jwt expired") {
+          toast.update(initialToastID, {
+            render: "Not allowed to visit resource, login again",
+            type: "error",
+            isLoading: false,
+            autoClose: 5000,
+          });
+        }
       }
     };
 
@@ -61,6 +74,7 @@ function Courses(props) {
         </Button>
       </div>
       <CoursesList headline="My Courses" data={instructorCourses} />
+      <ToastContainer />
     </div>
   );
 }

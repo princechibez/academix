@@ -19,6 +19,7 @@ import { AuthContext } from "../../App";
 import { SignInBtn } from "../../components/authButton";
 import Authpage from "../../assets/images/authpage_bg.jpg";
 import { useNavigate } from "react-router-dom";
+import { LocalSessionTracker } from "../../utility/logoutTimer";
 
 export default function SignIn() {
   const { setUser } = React.useContext(AuthContext);
@@ -26,13 +27,6 @@ export default function SignIn() {
   const [showPassword, setShowPassword] = React.useState(false);
   const [email, setEmail] = React.useState();
   const [password, setPassword] = React.useState();
-
-  // clear token after 24hrs
-  const clearToken = () => {
-    setTimeout(() => {
-      localStorage.clear("token");
-    }, 8640000);
-  };
 
   React.useEffect(() => {
     const token = localStorage.getItem("token");
@@ -64,7 +58,7 @@ export default function SignIn() {
 
       // save auth and userproperties token to loacal storage
       localStorage.setItem("token", response.data.data.token);
-      localStorage.setItem("expiresIn", new Date().getUTCHours() + 1);
+      localStorage.setItem("expiresIn", new Date().getUTCHours());
       setUser(JSON.stringify(response.data.data.user));
       localStorage.setItem("user", JSON.stringify(response.data.data.user));
 
@@ -76,8 +70,10 @@ export default function SignIn() {
       });
       if (response.data.data.user.userLevel === "instructor") {
         navigate("/dashboard/instructor/courses");
+      } else {
+        navigate("/courses");
       }
-      return clearToken();
+      return LocalSessionTracker()
     } catch (err) {
       if (err.message === "timeout of 10000ms exceeded") {
         return toast.update(initialToastID, {
@@ -204,7 +200,7 @@ export default function SignIn() {
           <Grid container justifyContent="center">
             <Grid item textAlign="center" pb={2}>
               Already have an account?{" "}
-              <Link href="/signup" variant="body2">
+              <Link href="/join-as" variant="body2">
                 Sign up for one!
               </Link>
             </Grid>

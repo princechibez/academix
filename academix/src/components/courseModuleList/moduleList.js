@@ -9,48 +9,72 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { BsPersonVideo3 } from "react-icons/bs";
 import { ListContainer } from "./moduleStyle";
+import { Playing } from "../loader";
 
-const Module = ({ moduleContent }) => {
+const Module = ({
+  moduleContent,
+  focusLecture,
+  moduleIndex,
+  setIndex,
+  activeIndex,
+}) => {
   const [open, setOpen] = React.useState(false);
+  const [currentPlaying, setCurrentPlaying] = React.useState(0);
 
   const handleClick = () => {
     setOpen(!open);
+    setIndex(moduleIndex);
   };
 
   return (
     <ListContainer>
-      <List sx={{ width: "100%", bgcolor: "#e8e8e8" }} component="section">
+      <List sx={{ width: "100%", bgcolor: "#ddd" }} component="section">
         <ListItemButton onClick={handleClick}>
           <ListItemIcon>
             <VscFileSubmodule size={25} />
           </ListItemIcon>
           <ListItemText
-            primary={moduleContent.title}
+            primary={`Module  ${moduleIndex + 1}: ${moduleContent.title}`}
             secondary={`${moduleContent.contents.length} Lectures | ${moduleContent.duration}`}
           />
-          {open ? <ExpandLess /> : <ExpandMore />}
+          {open && activeIndex === moduleIndex ? (
+            <ExpandLess />
+          ) : (
+            <ExpandMore />
+          )}
         </ListItemButton>
         <Collapse
-          sx={{ bgcolor: "#f0eded" }}
+          sx={{ bgcolor: "#eee" }}
           in={open}
           timeout="auto"
           unmountOnExit
         >
-          {moduleContent.contents.map(
-            (content) => (
-              (
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <BsPersonVideo3 size={20} />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={content.content_title}
-                    secondary={content.duration}
-                  />
-                </ListItemButton>
-              )
-            )
-          )}
+          {moduleContent.contents.map((content, index) => (
+            <ListItemButton
+              key={index}
+              onClick={
+                focusLecture
+                  ? () => {
+                      setCurrentPlaying(index);
+                      focusLecture(content);
+                    }
+                  : null
+              }
+              sx={{ pl: 4, height: 70 }}
+            >
+              <ListItemIcon>
+                {currentPlaying === index ? (
+                  <Playing />
+                ) : (
+                  <BsPersonVideo3 size={20} />
+                )}
+              </ListItemIcon>
+              <ListItemText
+                primary={content.content_title}
+                secondary={content.duration}
+              />
+            </ListItemButton>
+          ))}
         </Collapse>
       </List>
     </ListContainer>
