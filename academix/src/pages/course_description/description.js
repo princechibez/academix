@@ -49,6 +49,7 @@ const Description = () => {
   const [courseDetail, setCourseDetail] = useState();
   const [currentUser, setCurrentUser] = useState(null);
   const [isRegistered, setIsRegistered] = useState(null);
+  const [activeIndex, setActiveIndex] = React.useState(0);
 
   const topViewPort = useRef();
 
@@ -56,7 +57,7 @@ const Description = () => {
     email: currentUser?.email,
     firstname: currentUser?.username,
     phone: "+2347031936376",
-    amount: courseDetail?.price * 100,
+    amount: Number(courseDetail?.price) * 100,
     publicKey: "pk_test_904a1fd588af2171957a946793188c349082d198",
   });
 
@@ -170,6 +171,9 @@ const Description = () => {
     if (isRegistered) {
       actionBtnText = "Start class";
     }
+    if (courseDetail?.accessProtocol === "Free" && !isRegistered) {
+      actionBtnText = "Register for free";
+    }
     if (courseDetail?.accessProtocol === "Paid" && !isRegistered) {
       actionBtnText = "Buy this course now";
     }
@@ -241,7 +245,7 @@ const Description = () => {
                   <PrimaryDescListItem>
                     <IoMdPricetags size={24} />
                     <Typography variant="h5" fontWeight={600}>
-                    NGN {courseDetail?.price}
+                      {courseDetail?.accessProtocol === "Paid" ? `NGN  + ${courseDetail?.price}` : "Free Course"}
                     </Typography>
                     {/* students count */}
                   </PrimaryDescListItem>
@@ -303,6 +307,9 @@ const Description = () => {
             <div style={{ margin: "32px 0" }}>
               {courseDetail?.modules.map((content, index) => (
                 <Module
+                  playIndicator={false}
+                  setIndex={setActiveIndex}
+                  activeIndex={activeIndex}
                   moduleIndex={index}
                   moduleContent={content}
                   key={index}

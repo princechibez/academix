@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 import Nav from "../../components/navAuth/nav";
 import Footer from "../../components/footer/footer";
@@ -17,12 +17,15 @@ function InstructorDB() {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [currentUser, setCurrentUser] = useState();
+  const [mode, setMode] = useState();
+  const [queries] = useSearchParams();
 
   const { section } = useParams();
   const [visualCMP, setVisualCMP] = useState(<Profile />); //  CMP for component...
 
   useEffect(() => {
-    if (currentUser && !currentUser?.isInstructor || !user) {
+    setMode(queries.get("mode"));
+    if ((currentUser && !currentUser?.isInstructor) || !user) {
       navigate("/signin");
     }
   }, [currentUser]);
@@ -49,7 +52,7 @@ function InstructorDB() {
     <main style={{ position: "relative" }}>
       <Nav />
       <div style={{ display: "flex" }}>
-        <SideBar />
+        <SideBar mode={mode} />
         <div
           style={{
             height: "90vh",

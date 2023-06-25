@@ -114,6 +114,7 @@ const Classroom = () => {
                     focusLecture={(lectureContents) =>
                       setFocusedLecture(lectureContents)
                     }
+                    playIndicator
                     setIndex={setActiveIndex}
                     activeIndex={activeIndex}
                     moduleIndex={index}
@@ -126,7 +127,7 @@ const Classroom = () => {
           </DescriptionWrapper>
 
           {/* Instructor profile */}
-          <div style={{ marginTop: 42, padding: "0px 24px" }}>
+          <div style={{ padding: "0px 24px" }}>
             <Typography variant="h5">Instructor</Typography>
             <InstructorProfile
               focusedCourseID={courseID}

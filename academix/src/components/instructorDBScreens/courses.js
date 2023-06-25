@@ -55,24 +55,6 @@ function Courses(props) {
         flexFlow: "column",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          paddingRight: 18,
-          width: "100%",
-          height: 200,
-          marginTop: 80,
-        }}
-      >
-        <Button
-          onClick={goToCreateCourse}
-          variant="contained"
-          sx={{ padding: 2 }}
-        >
-          Create new course
-        </Button>
-      </div>
       <CoursesList headline="My Courses" data={instructorCourses} />
       <ToastContainer />
     </div>

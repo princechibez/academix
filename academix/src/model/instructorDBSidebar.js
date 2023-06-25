@@ -1,5 +1,5 @@
 // import React from 'react'
-import { MdLibraryBooks } from "react-icons/md";
+import { MdLibraryBooks, MdCreateNewFolder } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
 import { CgMediaLive } from "react-icons/cg";
 import { BsFillPersonLinesFill, BsFillPeopleFill } from "react-icons/bs";
@@ -16,10 +16,15 @@ export const InstructorDBSidebar = [
     icon: (props) => <MdLibraryBooks {...props} />,
   },
   {
-    path: "/dashboard/instructor/students",
-    label: "Students",
-    icon: () => <BsFillPeopleFill fontSize="large" />,
+    path: "/dashboard/instructor/create-course",
+    label: "New Course",
+    icon: (props) => <MdCreateNewFolder {...props} />,
   },
+  // {
+  //   path: "/dashboard/instructor/students",
+  //   label: "Students",
+  //   icon: () => <BsFillPeopleFill fontSize="large" />,
+  // },
   {
     path: "/dashboard/instructor/live-session",
     label: "Live Session",

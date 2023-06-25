@@ -518,7 +518,7 @@ function CreateCourse() {
               New Module
             </Button>
             <Button
-              // disabled={mode === "edit"}
+              disabled={mode === "edit"}
               onClick={uploadCourseHandler}
               variant="contained"
               sx={{ p: 2 }}

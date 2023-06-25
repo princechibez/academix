@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../App";
 import { InstructorDBSidebar } from "../../model/instructorDBSidebar";
 
-function SideBar() {
+function SideBar({ mode }) {
   const { setToken } = useContext(AuthContext);
 
   const logoutHandler = () => {
@@ -62,7 +62,9 @@ function SideBar() {
             }
           >
             <Typography variant="body1" fontSize={16}>
-              {sidebarItem.label}
+              {sidebarItem.label === "New Course" && mode === "edit"
+                ? "Edit Course"
+                : sidebarItem.label}
             </Typography>
           </MenuItem>
         ))}

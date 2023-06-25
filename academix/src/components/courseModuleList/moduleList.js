@@ -17,6 +17,7 @@ const Module = ({
   moduleIndex,
   setIndex,
   activeIndex,
+  playIndicator
 }) => {
   const [open, setOpen] = React.useState(false);
   const [currentPlaying, setCurrentPlaying] = React.useState(0);
@@ -63,7 +64,7 @@ const Module = ({
               sx={{ pl: 4, height: 70 }}
             >
               <ListItemIcon>
-                {currentPlaying === index ? (
+                {playIndicator && currentPlaying === index ? (
                   <Playing />
                 ) : (
                   <BsPersonVideo3 size={20} />
