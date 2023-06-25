@@ -226,6 +226,9 @@ const Description = () => {
                     if (!currentUser) {
                       return navigate("/signin");
                     }
+                    if(courseDetail?.accessProtocol === "Free" && !isRegistered) {
+                      return actionHandler('register')
+                    }
                     paymentInitializer(onSuccess, onClose);
                   }}
                   variant="outlined"
